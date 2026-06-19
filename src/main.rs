@@ -1,42 +1,38 @@
-mod model;
+use rust_me::Engine;
+use std::error::Error;
 
-use serde_json::json;
-use std::{
-    io::{BufRead, BufReader, Write},
-    net::{TcpListener, TcpStream},
-};
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    let engine = Engine::new().await?;
+    let session = engine.session();
 
-fn main() {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    session
+        .query_unpaged("SELECT cluster_name FROM system.local", &[])
+        .await?;
+    println!("Connected to ScyllaDB!");
 
-    for stream in listener.incoming() {
-        match stream {
-            Ok(stream) => handle_connection(stream),
-            Err(error) => eprintln!("Failed to accept connection: {error}"),
-        }
+    let qry = session.get_cluster_state();
+    let nodes = qry.get_nodes_info();
+
+    for node in nodes {
+        println!("Node ID: {}", node.host_id);
+        println!("Address: {:?}", node.address);
+        println!("Datacenter: {:?}", node.datacenter);
+        println!("Rack: {:?}", node.rack);
     }
+    get_users(session.as_ref()).await?;
+    Ok(())
 }
 
-fn handle_connection(mut stream: TcpStream) {
-    let request_line = {
-        let buf_reader = BufReader::new(&stream);
-        buf_reader.lines().next().unwrap().unwrap()
-    };
+async fn get_users(session: &Session) -> Result<(), Box<dyn Error>> {
+    let query = "SELECT id, name, email FROM users";
+    let rows = session.query_unpaged(query, &[]).await?.into_rows_result()?;
 
-    println!("Request: {request_line}");
+    for row in rows.rows::<(String, )>()? {
+        let (cluster_name) = row?;
+        println!("Cluster Name: {:?}", cluster_name);
+    }
 
-    let status_line = "HTTP/1.1 200 OK";
-    let content_type = "application/json";
-    let contents = json!({
-        "message": "Hello from Rust!",
-        "status": "success"
-    })
-    .to_string();
 
-    let response = format!(
-        "{status_line}\r\nContent-Type: {content_type}\r\nContent-Length: {}\r\n\r\n{contents}",
-        contents.len()
-    );
-    
-    stream.write_all(response.as_bytes()).unwrap();
+    Ok(())
 }

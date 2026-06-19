@@ -1,3 +1,5 @@
+// TODO: DataModel belum dipakai oleh server saat ini.
+// Pertahankan hanya kalau nanti memang dipakai untuk request/response payload.
 pub struct DataModel {
     pub id: i32,
     pub name: String,

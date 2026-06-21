@@ -101,7 +101,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 1. Jalankan `docker compose up -d`.
 2. Tunggu container sehat dan port `9042` siap.
 3. Jalankan aplikasi Rust yang memakai `SCYLLA_URI=127.0.0.1:9042`.
-4. Buat keyspace dan tabel baru setelah koneksi berhasil.
+4. Biarkan aplikasi melakukan `sync_schema()` saat startup supaya keyspace/tabel/kolom baru ikut terselaraskan.
 
 Contoh CQL:
 
@@ -110,14 +110,15 @@ CREATE KEYSPACE IF NOT EXISTS demo
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
 CREATE TABLE IF NOT EXISTS demo.users (
-    id int PRIMARY KEY,
+    id uuid PRIMARY KEY,
     name text,
-    email text
+    email text,
+    created_at timestamp
 );
 ```
 
 ## Catatan Penting
 
-- File `src/main.rs` saat ini masih server HTTP sederhana dan belum memakai DB.
+- File `src/main.rs` sekarang melakukan bootstrap koneksi, sync schema, lalu contoh insert ke `demo.users`.
 - Dokumen ini sengaja dibuat sebagai jembatan supaya kamu bisa lanjut menghubungkan handler HTTP ke query ScyllaDB tanpa mengubah semua struktur sekaligus.
-- Kalau kamu mau, langkah berikutnya adalah membuat endpoint yang benar-benar membaca/menulis data ke tabel `demo.users`.
+- Untuk alur auto-sync schema yang lebih lengkap, baca [Auto Sync Schema ScyllaDB dari Rust](/docs/scylla-auto-schema-sync).

@@ -12,3 +12,13 @@ class UserModel(Model):
     id = columns.UUID(primary_key=True)
     name = columns.Text()
     email = columns.Text()
+
+@register_model
+class MessagesModel(Model):
+    __keyspace__ = "demo"
+    __table_name__ = "messages"
+    id = columns.UUID(primary_key=True)
+    user_id = columns.UUID()
+    content = columns.Text()
+    
+

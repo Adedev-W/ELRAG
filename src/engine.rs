@@ -1,6 +1,7 @@
 use crate::config::Config;
 use crate::error::{AppError, AppResult};
 use crate::users::{UsersRepository, UsersStatements};
+use crate::messages::{MessagesRepository, MessagesStatements};
 use scylla::client::session::Session;
 use scylla::client::session_builder::SessionBuilder;
 use std::sync::Arc;
@@ -11,6 +12,7 @@ pub struct Engine {
     session: Arc<Session>,
     config: Arc<Config>,
     users_statements: Arc<UsersStatements>,
+    messages_statements: Arc<MessagesStatements>,
 }
 
 impl Engine {
@@ -25,11 +27,12 @@ impl Engine {
 
         let session = Arc::new(session);
         let users_statements = Arc::new(UsersStatements::prepare(&session, &config).await?);
-
+        let messages_statements = Arc::new(MessagesStatements::prepare(&session, &config).await?);
         Ok(Self {
             session,
             config: Arc::new(config),
             users_statements,
+            messages_statements,
         })
     }
 
@@ -45,6 +48,13 @@ impl Engine {
         UsersRepository::new(
             Arc::clone(&self.session),
             Arc::clone(&self.users_statements),
+        )
+    }
+
+    pub fn messages(&self) -> MessagesRepository {
+        MessagesRepository::new(
+            Arc::clone(&self.session),
+            Arc::clone(&self.messages_statements),
         )
     }
 }

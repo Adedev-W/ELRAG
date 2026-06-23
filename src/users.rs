@@ -104,7 +104,7 @@ impl UsersRepository {
         let users = rows
             .rows::<(Uuid, String, String)>()
             .map_err(|err| AppError::database("users.get_all.decode", err))?
-            .map(|row| {
+            .map(|row: Result<(Uuid, String, String), scylla::errors::DeserializationError>| {
                 let (id, name, email) =
                     row.map_err(|err| AppError::database("users.get_all.row", err))?;
                 Ok(User { id, name, email })

@@ -29,7 +29,7 @@ class GCSService:
             print(f"Gagal mendapatkan daftar file: {e}")
             return []
         
-    def download_file(self, source_blob_name: str, destination_file_path: str = None):
+    def download_file(self, source_blob_name: str):
         """Mendownload file dari GCS Bucket ke lokal"""
         try:
             blob = self.bucket.blob(source_blob_name)

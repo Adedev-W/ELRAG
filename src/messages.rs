@@ -17,7 +17,7 @@ pub struct ReadMessage {
 
 pub struct MessagesStatements {
     read: PreparedStatement,
-
+    created: PreparedStatement,
 }
 
 impl MessagesStatements {
@@ -29,9 +29,13 @@ impl MessagesStatements {
             .prepare(format!("SELECT id, content, user_id FROM {table}"))
             .await
             .map_err(|err| AppError::database("prepare messages.select_all", err))?;
-
+        let created = session
+            .prepare(format!("INSERT INTO {table} (id, content, user_id) VALUES (?, ?, ?)"))
+            .await
+            .map_err(|err| AppError::database("prepare messages.insert", err))?;
         Ok(Self {
             read,
+            created,
         })
     }
     

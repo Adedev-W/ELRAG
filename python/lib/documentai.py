@@ -1,6 +1,6 @@
 from google.cloud import documentai
 from google.api_core.client_options import ClientOptions
-
+from python.lib.storage_rest import GCSService
 
 class DocumentAIService:
     def __init__(self, location: str):
@@ -11,8 +11,9 @@ class DocumentAIService:
         self.client = documentai.DocumentProcessorServiceClient(
             client_options=opts
         )
+        
 
-    def process_document(
+    def process_document_gcs(
         self,
         project_id: str,
         location: str,
@@ -25,12 +26,48 @@ class DocumentAIService:
                 location,
                 processor_id,
             )
-
+            file_info = GCSService(bucket_name=).info_files(gcs_input_uri))
             request = documentai.ProcessRequest(
                 name=name,
                 gcs_document=documentai.GcsDocument(
                     gcs_uri=gcs_input_uri,
-                    mime_type="application/pdf",
+                    mime_type=file_info["content_type"],
+                ),
+            )
+
+            result = self.client.process_document(
+                request=request
+            )
+
+            return result.document
+
+        except Exception as e:
+            print(f"Gagal memproses dokumen: {e}")
+            return None
+        
+    def process_document(
+        self,
+        project_id: str,
+        location: str,
+        processor_id: str,
+        files: bytes,
+        mime_type: str
+    ):
+        try:
+            name = self.client.processor_path(
+                project_id,
+                location,
+                processor_id,
+            )
+            
+    
+
+            request = documentai.ProcessRequest(
+                name=name,
+                document=documentai.RawDocument(
+                    content=files,
+                    mime_type=mime_type,
+                    
                 ),
             )
 
@@ -45,17 +82,17 @@ class DocumentAIService:
             return None
 
 
-document_ai_service = DocumentAIService(
-    location="us"
-)
+# document_ai_service = DocumentAIService(
+#     location="us"
+# )
 
-document = document_ai_service.process_document(
-    project_id="xxxx",
-    location="us",
-    processor_id="xxxx",
-    gcs_input_uri="gs://xxxxf",
-)
+# document = document_ai_service.process_document(
+#     project_id="xxxx",
+#     location="us",
+#     processor_id="xxxx",
+#     gcs_input_uri="gs://xxxxf",
+# )
 
-if document:
-    print("=== HASIL OCR ===")
-    print(document.text)
+# if document:
+#     print("=== HASIL OCR ===")
+#     print(document.text)

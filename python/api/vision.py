@@ -1,4 +1,4 @@
-from turtle import mode
+
 from typing import Optional
 
 from fastapi import APIRouter, File, UploadFile
@@ -27,7 +27,7 @@ async def extract_features(files: UploadFile = File(...)) -> JSONResponse:
 
 
 @vision_api.post("/vision-gcs", response_model=list[VisionResponse])
-async def extract_features(gcs_uri: str) -> JSONResponse:
+async def extract_features(gcs_uri: str) -> JSONResponse: #must use VisionResponse
     extractor = VisionService()
     output = extractor.detect_text_forgcs(gcs_uri)
     return JSONResponse(status_code=200, content={"message": "Features extracted successfully", "data": output})

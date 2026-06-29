@@ -18,6 +18,26 @@ class GCSService:
             print(f"Gagal upload ke GCS: {e}")
             return False
         
+    def info_files(self, blob_name: str):
+        """Mendapatkan informasi file di GCS Bucket"""
+        try:
+            blob = self.bucket.blob(blob_name)
+            if blob.exists():
+                info = {
+                    "name": blob.name,
+                    "size": blob.size,
+                    "content_type": blob.content_type,
+                    "updated": blob.updated,
+                }
+                print(f"Informasi file {blob_name}: {info}")
+                return info
+            else:
+                print(f"File {blob_name} tidak ditemukan di bucket.")
+                return None
+        except Exception as e:
+            print(f"Gagal mendapatkan informasi file: {e}")
+            return None
+        
     def list_files(self):
         """Mendapatkan daftar file di GCS Bucket"""
         try:

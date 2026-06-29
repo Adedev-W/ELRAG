@@ -3,15 +3,22 @@ from __future__ import annotations
 import os
 from typing import Any, Callable, TypeVar
 
+from cassandra.cluster import Session
 from cassandra.cqlengine import connection, management
 
 T = TypeVar("T")
 
 MODEL_REGISTRY: dict[str, type[Any]] = {}
 
+_initialized = False
 
-def register_model(cls: type[T] | None = None, *, name: str | None = None) -> type[T] | Callable[[type[T]], type[T]]:
-    """Register a dataclass model for reuse across the Python/Rust boundary."""
+
+def register_model(
+    cls: type[T] | None = None,
+    *,
+    name: str | None = None,
+) -> type[T] | Callable[[type[T]], type[T]]:
+    """Register a model for schema synchronization."""
 
     def decorator(model_cls: type[T]) -> type[T]:
         model_name = name or model_cls.__name__
@@ -24,16 +31,28 @@ def register_model(cls: type[T] | None = None, *, name: str | None = None) -> ty
     return decorator
 
 
-class TableModelMeta:
-    table_name: str
-    model_name: str
-
-
 def setup_connection() -> None:
+    global _initialized
+
+    if _initialized:
+        return
+
     os.environ.setdefault("CQLENG_ALLOW_SCHEMA_MANAGEMENT", "1")
+
     contact_point = os.getenv("SCYLLA_CONTACT_POINT", "127.0.0.1")
     keyspace = os.getenv("SCYLLA_KEYSPACE", "demo")
-    connection.setup([contact_point], default_keyspace=keyspace)
+
+    connection.setup(
+        hosts=[contact_point],
+        default_keyspace=keyspace,
+    )
+
+    _initialized = True
+
+
+def get_session() -> Session:
+    setup_connection()
+    return connection.get_session()
 
 
 def sync_all_tables() -> None:
@@ -41,3 +60,4 @@ def sync_all_tables() -> None:
 
     for model_cls in MODEL_REGISTRY.values():
         management.sync_table(model_cls)
+        

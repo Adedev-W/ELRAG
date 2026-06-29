@@ -1,6 +1,5 @@
 from google.cloud import documentai
 from google.api_core.client_options import ClientOptions
-from python.lib.storage_rest import GCSService
 
 class DocumentAIService:
     def __init__(self, location: str):
@@ -19,6 +18,7 @@ class DocumentAIService:
         location: str,
         processor_id: str,
         gcs_input_uri: str,
+        mime_type: str
     ):
         try:
             name = self.client.processor_path(
@@ -26,12 +26,11 @@ class DocumentAIService:
                 location,
                 processor_id,
             )
-            file_info = GCSService(bucket_name=).info_files(gcs_input_uri))
             request = documentai.ProcessRequest(
                 name=name,
                 gcs_document=documentai.GcsDocument(
                     gcs_uri=gcs_input_uri,
-                    mime_type=file_info["content_type"],
+                    mime_type=mime_type,
                 ),
             )
 
@@ -66,8 +65,7 @@ class DocumentAIService:
                 name=name,
                 document=documentai.RawDocument(
                     content=files,
-                    mime_type=mime_type,
-                    
+                    mime_type=mime_type
                 ),
             )
 

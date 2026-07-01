@@ -80,19 +80,19 @@ class DocumentAIService:
             return None
 
 
-document_ai_service = DocumentAIService(
-    location="us"
+# document_ai_service = DocumentAIService(
+#     location="us"
     
-)
-files = open("/home/As.Dev-ai/rust-project/rust-me/SAMPLE_OCR.pdf", "rb")
+# )
+# files = open("/home/As.Dev-ai/rust-project/rust-me/SAMPLE_OCR.pdf", "rb")
 
-document = document_ai_service.process_document(
-    project_id="adsapt",
-    location="us",
-    processor_id="2ff00dc23a9dd3f8",
-    files=files.read(),
-    mime_type="application/pdf"  
-)
+# document = document_ai_service.process_document(
+#     project_id="adsapt",
+#     location="us",
+#     processor_id="2ff00dc23a9dd3f8",
+#     files=files.read(),
+#     mime_type="application/pdf"  
+# )
 
 
-print(document.text) 
+# print(document.text) 

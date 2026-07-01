@@ -20,14 +20,14 @@ async def process_documents_gcs(gcs_uri: str) -> JSONResponse:
     service = DocumentAIService("us")
     
     response = service.process_document_gcs(project_id="adesapt", location="us", processor_id="2ff00dc23a9dd3f8", gcs_input_uri=gcs_output["name"], mime_type=gcs_output["content_type"])
-    final_response = DocumentAIResponseGCS(id=str(uuid4()), gcs_uri=gcs_output["name"], metadata=response.metadata, content=response.content).model_dump_json()
-    return JSONResponse(content=final_response)
+    final_response = DocumentAIResponseGCS(id=str(uuid4()), gcs_uri=gcs_output["name"], metadata=response.metadata, content=response.content)
+    return JSONResponse(content=final_response.model_dump)
 
 @docs_api.post("/documentai/bytes", response_model=DocumentAIResponseBytes)
 async def process_documents_bytes(file: UploadFile = File(...)) -> JSONResponse:
     """Extracts text and structured data from a document uploaded as bytes using Document AI."""
     file_bytes = await file.read()
     service = DocumentAIService("us")
-    response = service.process_document(project_id="adesapt", location="us", processor_id="2ff00dc23a9dd3f8", files=file_bytes, mime_type=file.content_type)
-    final_response = DocumentAIResponseBytes(id=str(uuid4()), filename=file.filename, metadata=MessageToDict(response._pb), content=response.text).model_dump_json()
-    return JSONResponse(content=final_response)
+    response = service.process_document(project_id="adsapt", location="us", processor_id="2ff00dc23a9dd3f8", files=file_bytes, mime_type=file.content_type)
+    final_response = DocumentAIResponseBytes(id=str(uuid4()), filename=file.filename, metadata=MessageToDict(response._pb), content=response.text)
+    return JSONResponse(content=final_response.model_dump())

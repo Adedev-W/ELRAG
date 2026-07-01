@@ -7,7 +7,7 @@ class DocumentAIResponseGCS(BaseModel):
     gcs_uri: Optional[str] = Field(
         None, description="Google Cloud Storage URI for the document"
     )
-    metadata: Optional[str] = Field(
+    metadata: Optional[dict] = Field(
         None, description="Optional metadata or extracted text summary"
     )
     content: Optional[str] = Field(None, description="Optional raw content or OCR text")
@@ -17,7 +17,7 @@ class DocumentAIResponseBytes(BaseModel):
     filename: Optional[str] = Field(
         None, description="Name of the uploaded file"
     )
-    metadata: Optional[str] = Field(
+    metadata: Optional[dict] = Field(
         None, description="Optional metadata or extracted text summary"
     )
     content: Optional[str] = Field(None, description="Optional raw content or OCR text")

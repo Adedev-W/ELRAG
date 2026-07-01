@@ -2,10 +2,20 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 #DocumentAI Schema
-class DocumentAIResponse(BaseModel):
+class DocumentAIResponseGCS(BaseModel):
     id: str = Field(..., description="Unique document record identifier")
     gcs_uri: Optional[str] = Field(
         None, description="Google Cloud Storage URI for the document"
+    )
+    metadata: Optional[str] = Field(
+        None, description="Optional metadata or extracted text summary"
+    )
+    content: Optional[str] = Field(None, description="Optional raw content or OCR text")
+
+class DocumentAIResponseBytes(BaseModel):
+    id: str = Field(..., description="Unique document record identifier")
+    filename: Optional[str] = Field(
+        None, description="Name of the uploaded file"
     )
     metadata: Optional[str] = Field(
         None, description="Optional metadata or extracted text summary"

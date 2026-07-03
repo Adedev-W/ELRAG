@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any, Callable, TypeVar
 
@@ -11,6 +12,11 @@ T = TypeVar("T")
 MODEL_REGISTRY: dict[str, type[Any]] = {}
 
 _initialized = False
+logger = logging.getLogger(__name__)
+
+
+def get_configured_keyspace() -> str:
+    return os.getenv("SCYLLA_KEYSPACE", "production")
 
 
 def register_model(
@@ -40,7 +46,7 @@ def setup_connection() -> None:
     os.environ.setdefault("CQLENG_ALLOW_SCHEMA_MANAGEMENT", "1")
 
     contact_point = os.getenv("SCYLLA_CONTACT_POINT", "127.0.0.1")
-    keyspace = os.getenv("SCYLLA_KEYSPACE", "demo")
+    keyspace = get_configured_keyspace()
 
     connection.setup(
         hosts=[contact_point],
@@ -50,6 +56,19 @@ def setup_connection() -> None:
     _initialized = True
 
 
+def verify_keyspace_exists(session: Session) -> None:
+    keyspace = get_configured_keyspace()
+    rows = session.execute(
+        "SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = %s",
+        (keyspace,),
+    )
+    if rows.one() is None:
+        raise RuntimeError(
+            f"ScyllaDB keyspace '{keyspace}' was not found. "
+            "Create the keyspace first or set SCYLLA_KEYSPACE to an existing keyspace."
+        )
+
+
 def get_session() -> Session:
     setup_connection()
     return connection.get_session()
@@ -57,7 +76,15 @@ def get_session() -> Session:
 
 def sync_all_tables() -> None:
     setup_connection()
+    session = get_session()
+    verify_keyspace_exists(session)
 
     for model_cls in MODEL_REGISTRY.values():
-        management.sync_table(model_cls)
-        
+        try:
+            management.sync_table(model_cls)
+        except Exception:
+            logger.exception(
+                "Failed to synchronize table for model %s",
+                model_cls.__name__,
+            )
+            raise

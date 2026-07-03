@@ -1,4 +1,5 @@
 from .base import MODEL_REGISTRY, register_model, setup_connection, sync_all_tables
+from . import model
 
 
 __all__ = [
@@ -6,4 +7,5 @@ __all__ = [
     "register_model",
     "setup_connection",
     "sync_all_tables",
+    "model",
 ]

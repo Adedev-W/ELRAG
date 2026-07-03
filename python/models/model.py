@@ -7,7 +7,6 @@ from .base import register_model
 
 @register_model
 class CloudStorage(Model):
-    __keyspace__ = "production"
     __table_name__ = "cloud_storage"
     id = columns.UUID(primary_key=True)
     name = columns.Text()
@@ -19,7 +18,6 @@ class CloudStorage(Model):
 
 @register_model
 class ControllerServices(Model):
-    __keyspace__ = "production"
     __table_name__ = "controller_services"
     id = columns.UUID(primary_key=True)
     cs_id = columns.UUID()
@@ -30,14 +28,12 @@ class ControllerServices(Model):
 
 @register_model
 class DocumentAI(Model):
-    __keyspace__ = "production"
     __table_name__ = "document_ai"
     id = columns.UUID(primary_key=True)
     metadata = columns.Text()
 
 @register_model
 class Vision(Model):
-    __keyspace__ = "production"
     __table_name__ = "vision"
     id = columns.UUID(primary_key=True)
     description = columns.Text()
@@ -46,7 +42,6 @@ class Vision(Model):
     
 @register_model
 class Client(Model):
-    __keyspace__ = "production"
     __table_name__ = "client"
     id = columns.UUID(primary_key=True)
     client_name = columns.Text()

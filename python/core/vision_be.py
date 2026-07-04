@@ -7,10 +7,10 @@ from uuid import UUID, uuid4
 
 from google.protobuf.json_format import MessageToDict
 
-from python.lib.documentai import DocumentAIService
+from python.lib.vision import VisionService
 from python.lib.storage_rest import GCSService
-from python.models.model import DocumentAI
-from python.models.schema import DocumentAIResponseBytes, DocumentAIResponseGCS
+from python.models.model import Vision
+from python.models.schema import Vision
 
 
 class DocsServiceBE:

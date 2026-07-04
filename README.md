@@ -49,7 +49,7 @@ This brings up a local ScyllaDB instance on port `9042`.
 Set or export these values as needed:
 
 - `SCYLLA_CONTACT_POINT` (default: `127.0.0.1`)
-- `SCYLLA_KEYSPACE` (default: `demo`)
+- `SCYLLA_KEYSPACE` (default: `production`)
 - `SCYLLA_URI` (for Rust code, e.g. `127.0.0.1:9042`)
 
 For Google Cloud services, configure the standard service account credentials environment variables such as:

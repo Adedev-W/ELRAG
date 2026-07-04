@@ -1,33 +1,38 @@
-from typing import Optional
-
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
-from python.lib.documentai import DocumentAIService
-from python.lib.storage_rest import GCSService
-from python.models.schema import DocumentAIRequestGCS, DocumentAIRequestBytes, DocumentAIResponseGCS, DocumentAIResponseBytes
-from python.models.base import get_session
-import os
-from uuid import uuid4
-from google.protobuf.json_format import MessageToDict
+
+from python.core.docs_be import DocsServiceBE
+from python.models.schema import DocumentAIResponseBytes, DocumentAIResponseGCS
 
 docs_api = APIRouter()
+docs_service = DocsServiceBE()
+
 
 @docs_api.post("/documentai/gcs", response_model=DocumentAIResponseGCS)
 async def process_documents_gcs(gcs_uri: str) -> JSONResponse:
     """Extracts text and structured data from a document stored in Google Cloud Storage using Document AI."""
-    gcs_info = GCSService(os.environ.get("GCS_BUCKET"))
-    gcs_output = gcs_info.info_files(gcs_uri)
-    service = DocumentAIService("us")
-    
-    response = service.process_document_gcs(project_id="adesapt", location="us", processor_id="2ff00dc23a9dd3f8", gcs_input_uri=gcs_output["name"], mime_type=gcs_output["content_type"])
-    final_response = DocumentAIResponseGCS(id=str(uuid4()), gcs_uri=gcs_output["name"], metadata=response.metadata, content=response.content)
-    return JSONResponse(content=final_response.model_dump)
+    try:
+        final_response = await docs_service.process_documents_gcs(gcs_uri)
+        return JSONResponse(content=final_response.model_dump())
+    except ValueError as exc:
+        return JSONResponse(status_code=404, content={"message": str(exc)})
+
 
 @docs_api.post("/documentai/bytes", response_model=DocumentAIResponseBytes)
 async def process_documents_bytes(file: UploadFile = File(...)) -> JSONResponse:
     """Extracts text and structured data from a document uploaded as bytes using Document AI."""
     file_bytes = await file.read()
-    service = DocumentAIService("us")
-    response = service.process_document(project_id="adsapt", location="us", processor_id="2ff00dc23a9dd3f8", files=file_bytes, mime_type=file.content_type)
-    final_response = DocumentAIResponseBytes(id=str(uuid4()), filename=file.filename, metadata=MessageToDict(response._pb), content=response.text)
+    final_response = await docs_service.process_documents_bytes(
+        file_bytes=file_bytes,
+        filename=file.filename,
+        mime_type=file.content_type,
+    )
     return JSONResponse(content=final_response.model_dump())
+
+
+@docs_api.get("/documentai/{response_id}")
+async def get_documentai_response(response_id: str) -> JSONResponse:
+    response = await docs_service.get_documentai_response(response_id)
+    if response is None:
+        return JSONResponse(status_code=404, content={"message": "Document AI response not found"})
+    return JSONResponse(content=docs_service.serialize_documentai_response(response))

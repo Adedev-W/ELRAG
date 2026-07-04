@@ -50,7 +50,7 @@ Urutannya seperti ini:
 1. aplikasi start
 2. `Engine::new()` membuat session ke ScyllaDB
 3. `engine.sync_schema()` dipanggil
-4. aplikasi mengecek keyspace dan tabel `demo.users`
+4. aplikasi mengecek keyspace dan tabel `production.users`
 5. aplikasi baca kolom yang sudah ada dari `system_schema.columns`
 6. kalau ada kolom di model Rust tetapi belum ada di database, aplikasi menjalankan `ALTER TABLE`
 7. setelah schema cocok, aplikasi lanjut menjalankan logic bisnis
@@ -97,7 +97,7 @@ Logika sync ada di `src/schema.rs`.
 ### 1. Buat keyspace
 
 ```rust
-CREATE KEYSPACE IF NOT EXISTS demo
+CREATE KEYSPACE IF NOT EXISTS production
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}
 ```
 
@@ -106,7 +106,7 @@ Ini aman dijalankan berulang.
 ### 2. Buat tabel jika belum ada
 
 ```rust
-CREATE TABLE IF NOT EXISTS demo.users (
+CREATE TABLE IF NOT EXISTS production.users (
     id uuid PRIMARY KEY,
     name text,
     email text,
@@ -125,7 +125,7 @@ Aplikasi membaca `system_schema.columns` untuk mendapatkan daftar kolom yang sud
 Kalau model Rust punya kolom baru, aplikasi menjalankan query seperti:
 
 ```rust
-ALTER TABLE demo.users ADD phone text
+ALTER TABLE production.users ADD phone text
 ```
 
 Pola ini adalah inti dari auto-sync yang aman.
@@ -201,7 +201,7 @@ Jalankan aplikasi lagi.
 Saat startup, aplikasi akan mendeteksi kolom `phone` belum ada, lalu menjalankan:
 
 ```sql
-ALTER TABLE demo.users ADD phone text;
+ALTER TABLE production.users ADD phone text;
 ```
 
 ### Langkah 5
@@ -224,8 +224,8 @@ Kalau sync gagal, cek urutan ini:
 
 1. pastikan container ScyllaDB hidup
 2. pastikan `SCYLLA_URI` benar
-3. pastikan keyspace `demo` bisa dibuat
-4. pastikan table `demo.users` bisa dibuat
+3. pastikan keyspace `production` bisa dibuat
+4. pastikan table `production.users` bisa dibuat
 5. pastikan query ke `system_schema.columns` sukses
 6. pastikan tipe kolom valid di ScyllaDB
 

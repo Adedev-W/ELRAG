@@ -106,10 +106,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
 Contoh CQL:
 
 ```sql
-CREATE KEYSPACE IF NOT EXISTS demo
+CREATE KEYSPACE IF NOT EXISTS production
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
-CREATE TABLE IF NOT EXISTS demo.users (
+CREATE TABLE IF NOT EXISTS production.users (
     id uuid PRIMARY KEY,
     name text,
     email text,
@@ -119,6 +119,6 @@ CREATE TABLE IF NOT EXISTS demo.users (
 
 ## Catatan Penting
 
-- File `src/main.rs` sekarang melakukan bootstrap koneksi, sync schema, lalu contoh insert ke `demo.users`.
+- File `src/main.rs` sekarang melakukan bootstrap koneksi, sync schema, lalu contoh insert ke `production.users`.
 - Dokumen ini sengaja dibuat sebagai jembatan supaya kamu bisa lanjut menghubungkan handler HTTP ke query ScyllaDB tanpa mengubah semua struktur sekaligus.
 - Untuk alur auto-sync schema yang lebih lengkap, baca [Auto Sync Schema ScyllaDB dari Rust](/docs/scylla-auto-schema-sync).

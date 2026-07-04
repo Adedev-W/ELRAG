@@ -4,3 +4,4 @@ __pycache__/
 .env
 /.venv
 SAMPLE_OCR.pdf
+AGENTS.md

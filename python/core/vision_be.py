@@ -2,118 +2,83 @@ from __future__ import annotations
 
 import asyncio
 import json
-import os
 from uuid import UUID, uuid4
 
-from google.protobuf.json_format import MessageToDict
-
 from python.lib.vision import VisionService
-from python.lib.storage_rest import GCSService
-from python.models.model import Vision
-from python.models.schema import Vision
+from python.models.model import Vision as VisionModel
+from python.models.schema import VisionResponse
 
 
-class DocsServiceBE:
-    def __init__(self) -> None:
-        self.bucket_name = os.environ.get("GCS_BUCKET")
-
-    async def save_documentai_response(self, response: DocumentAI) -> DocumentAI:
+class VisionServiceBE:
+    async def save_vision_response(self, response: VisionModel) -> VisionModel:
         await asyncio.to_thread(response.save)
         return response
 
-    async def get_documentai_response(self, response_id: str) -> DocumentAI | None:
-        def _get() -> DocumentAI | None:
-            return DocumentAI.objects(id=UUID(response_id)).first()
+    async def get_vision_response(self, vision_id: str) -> VisionModel | None:
+        def _get() -> VisionModel | None:
+            return VisionModel.objects(id=UUID(vision_id)).first()
 
         return await asyncio.to_thread(_get)
 
     @staticmethod
-    def serialize_documentai_response(response: DocumentAI) -> dict:
+    def serialize_vision_response(response: VisionModel) -> dict:
         return {
             "id": str(response.id),
-            "gcs_uri": response.gcs_uri,
-            "filename": response.filename,
             "metadata": response.metadata,
             "content": response.content,
         }
 
-    async def process_documents_gcs(self, gcs_uri: str) -> DocumentAIResponseGCS:
-        gcs_service = GCSService(self.bucket_name)
-        gcs_info = await asyncio.to_thread(gcs_service.info_files, gcs_uri)
-        if not gcs_info:
-            raise ValueError("GCS file not found")
+    async def process_vision_bytes(self, file_bytes: bytes) -> VisionResponse:
+        vision_service = VisionService()
+        output = await asyncio.to_thread(vision_service.detect_text, file_bytes)
 
-        document_service = DocumentAIService("us")
-        document = await asyncio.to_thread(
-            document_service.process_document_gcs,
-            project_id="adesapt",
-            location="us",
-            processor_id="2ff00dc23a9dd3f8",
-            gcs_input_uri=gcs_info["name"],
-            mime_type=gcs_info["content_type"],
-        )
-
-        response = DocumentAIResponseGCS(
+        response = VisionResponse(
             id=str(uuid4()),
-            gcs_uri=gcs_info["name"],
-            metadata=MessageToDict(document._pb),
-            content=document.text,
+            metadata=None,
+            content=output,
         )
-        await self._persist_documentai_response(
-            response_id=response.id,
-            gcs_uri=response.gcs_uri,
-            filename=None,
-            metadata=response.metadata,
-            content=response.content,
-        )
-        return response
-
-    async def process_documents_bytes(
-        self,
-        file_bytes: bytes,
-        filename: str | None,
-        mime_type: str | None,
-    ) -> DocumentAIResponseBytes:
-        document_service = DocumentAIService("us")
-        document = await asyncio.to_thread(
-            document_service.process_document,
-            project_id="adsapt",
-            location="us",
-            processor_id="2ff00dc23a9dd3f8",
-            files=file_bytes,
-            mime_type=mime_type,
-        )
-
-        response = DocumentAIResponseBytes(
-            id=str(uuid4()),
-            filename=filename,
-            metadata=MessageToDict(document._pb),
-            content=document.text,
-        )
-        await self._persist_documentai_response(
+        await self._persist_vision_response(
             response_id=response.id,
             gcs_uri=None,
-            filename=response.filename,
             metadata=response.metadata,
             content=response.content,
         )
         return response
 
-    async def _persist_documentai_response(
+    async def process_vision_gcs(self, gcs_uri: str) -> VisionResponse:
+        vision_service = VisionService()
+        output = await asyncio.to_thread(vision_service.detect_text_forgcs, gcs_uri)
+
+        response = VisionResponse(
+            id=str(uuid4()),
+            metadata=None,
+            content=output,
+        )
+        await self._persist_vision_response(
+            response_id=response.id,
+            gcs_uri=gcs_uri,
+            metadata=response.metadata,
+            content=response.content,
+        )
+        return response
+
+    async def _persist_vision_response(
         self,
         *,
         response_id: str,
         gcs_uri: str | None,
-        filename: str | None,
-        metadata: dict | None,
+        metadata: dict | str | None,
         content: str | None,
     ) -> None:
-        record = DocumentAI(
+        if isinstance(metadata, dict):
+            metadata_value = json.dumps(metadata)
+        else:
+            metadata_value = metadata
+
+        record = VisionModel(
             id=UUID(response_id),
             gcs_uri=gcs_uri,
-            filename=filename,
-            metadata="" if metadata is None else json.dumps(metadata),
+            metadata=metadata_value,
             content=content,
         )
-        await self.save_documentai_response(record)
-
+        await self.save_vision_response(record)

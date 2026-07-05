@@ -40,8 +40,8 @@ class Client(BaseModel):
 
 class GCSUploadResponse(BaseModel):
     message: str = Field(..., description="Response message")
-    vision_id: Optional[str] = Field(
-        None, description="ID of the created vision record if upload is successful"
+    cloud_storage_id: Optional[str] = Field(
+        None, description="ID of the created cloud storage record if upload is successful"
     )
 
 
@@ -64,7 +64,6 @@ class VisionResponse(BaseModel):
         None, description="Optional metadata or extracted text summary"
     )
     content: Optional[str] = Field(None, description="Optional raw content or OCR text")
-
 
 
 

@@ -1,42 +1,57 @@
-import uuid
-
-from fastapi import FastAPI, UploadFile, File, APIRouter
+from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
-from python.lib.storage_rest import GCSService
-from uuid import uuid4
-from python.models.schema import Vision, Client
+
+from python.core.gcs_be import GCSServiceBE
+from python.models.schema import GCSUploadResponse
 
 gcs_api = APIRouter()
+gcs_service = GCSServiceBE()
 
-@gcs_api.post("/upload")
+
+@gcs_api.post("/upload", response_model=GCSUploadResponse)
 async def upload_file_to_gcs(file: UploadFile = File(...)) -> JSONResponse:
-    """
-    Endpoint untuk mengupload file ke GCS dan mengekstrak fitur.
-    """
     try:
-        # Simpan file sementara di server
-        temp_file_path = f"/tmp/{file.filename}"
-        with open(temp_file_path, "wb") as temp_file:
-            temp_file.write(await file.read())
+        file_bytes = await file.read()
+        response = await gcs_service.upload_file_to_gcs(file.filename, file_bytes)
+        return JSONResponse(status_code=200, content=response.model_dump())
+    except ValueError as exc:
+        return JSONResponse(status_code=500, content={"message": str(exc)})
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"message": f"Terjadi kesalahan: {exc}"})
 
-        # Upload file ke GCS
-        gcs_service = GCSService(bucket_name="your-bucket-name")
-        destination_blob_name = f"uploads/{file.filename}"
-        upload_success = gcs_service.upload_file(temp_file_path, destination_blob_name)
 
-        if not upload_success:
-            return JSONResponse(status_code=500, content={"message": "Gagal mengupload file ke GCS."})
+@gcs_api.get("/files")
+async def list_files() -> JSONResponse:
+    try:
+        files = await gcs_service.list_files()
+        return JSONResponse(status_code=200, content={"data": files})
+    except ValueError as exc:
+        return JSONResponse(status_code=500, content={"message": str(exc)})
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"message": f"Terjadi kesalahan: {exc}"})
 
-        # Simpan metadata ke database (misalnya menggunakan Cassandra)
-        vision_record = Vision(
-            id=str(uuid4()),
-            gcs_uri=f"gs://your-bucket-name/{destination_blob_name}",
-            metadata="Metadata tambahan jika ada",
-            content="Konten tambahan jika ada"
-        )
-        # Simpan vision_record ke database (implementasi terserah Anda)
 
-        return JSONResponse(status_code=200, content={"message": "File berhasil diupload dan fitur diekstrak.", "vision_id": vision_record.id})
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"message": f"Terjadi kesalahan: {e}"})
-    
+@gcs_api.get("/files/info")
+async def info_file(blob_name: str) -> JSONResponse:
+    try:
+        info = await gcs_service.info_file(blob_name)
+        if info is None:
+            return JSONResponse(status_code=404, content={"message": "File not found"})
+        return JSONResponse(status_code=200, content=info)
+    except ValueError as exc:
+        return JSONResponse(status_code=500, content={"message": str(exc)})
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"message": f"Terjadi kesalahan: {exc}"})
+
+
+@gcs_api.get("/files/download")
+async def download_file(blob_name: str) -> JSONResponse:
+    try:
+        success = await gcs_service.download_file(blob_name)
+        if not success:
+            return JSONResponse(status_code=500, content={"message": "Failed to download file"})
+        return JSONResponse(status_code=200, content={"message": "File downloaded"})
+    except ValueError as exc:
+        return JSONResponse(status_code=500, content={"message": str(exc)})
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"message": f"Terjadi kesalahan: {exc}"})

@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from python.sdk.client import ElragSDK, SDKResponseError
+from python.sdk.exceptions import SDKResponseError
+from python.sdk.transport import ElragTransport
 
 
 class GCSSDK:
-    def __init__(self, client: ElragSDK) -> None:
+    def __init__(self, client: ElragTransport) -> None:
         self.client = client
 
     async def upload_file(self, file_path: str) -> tuple[Any, dict[str, str]]:

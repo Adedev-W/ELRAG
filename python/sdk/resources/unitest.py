@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from python.sdk.client import ElragSDK
+from python.sdk.transport import ElragTransport
 
 
 class UnitestSDK:
-    def __init__(self, client: ElragSDK) -> None:
+    def __init__(self, client: ElragTransport) -> None:
         self.client = client
 
     async def create_client(self, client_name: str, client_pinkey: str) -> tuple[Any, dict[str, str]]:

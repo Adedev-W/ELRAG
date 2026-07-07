@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from python.sdk.client import ElragSDK
+from python.sdk.exceptions import SDKResponseError
+from python.sdk.transport import ElragTransport
 
 
 class VisionSDK:
-    def __init__(self, client: ElragSDK) -> None:
+    def __init__(self, client: ElragTransport) -> None:
         self.client = client
 
     async def get_vision(self, vision_id: str) -> tuple[Any, dict[str, str]]:
@@ -20,8 +21,6 @@ class VisionSDK:
                 headers=self.client._request_headers(True),
             )
         if response.status_code >= 400:
-            from python.sdk.client import SDKResponseError
-
             raise SDKResponseError(response)
         return response.json(), dict(response.headers)
 

@@ -6,34 +6,29 @@ from typing import Any
 from httpx import AsyncClient, Response
 
 from python.sdk.config_loader import load_auth_file, load_sdk_conf
+from python.sdk.exceptions import SDKResponseError
 
 
-class SDKResponseError(RuntimeError):
-    def __init__(self, response: Response) -> None:
-        self.status_code = response.status_code
-        self.body = self._safe_json(response)
-        super().__init__(f"HTTP {response.status_code}")
-
-    @staticmethod
-    def _safe_json(response: Response) -> Any:
-        try:
-            return response.json()
-        except Exception:
-            return response.text
-
-
-class ElragSDK:
+class ElragTransport:
     def __init__(
         self,
         base_url: str | None = None,
         auth_file: str | Path | None = None,
         config_file: str | Path | None = None,
     ) -> None:
-        config_path = Path(config_file) if config_file is not None else Path(__file__).with_name("config").joinpath(".conf")
+        config_path = (
+            Path(config_file)
+            if config_file is not None
+            else Path(__file__).with_name("config").joinpath(".conf")
+        )
         config = load_sdk_conf(config_path)
         self.base_url = base_url or config.get("BASE_URL", "http://127.0.0.1:8000")
 
-        auth_file_value = Path(auth_file) if auth_file is not None else Path(config.get("BASE_AUTH_FILE", ".elrag_secret"))
+        auth_file_value = (
+            Path(auth_file)
+            if auth_file is not None
+            else Path(config.get("BASE_AUTH_FILE", ".elrag_secret"))
+        )
         auth_file_path = auth_file_value if auth_file_value.is_absolute() else config_path.parent / auth_file_value
         self.auth = load_auth_file(auth_file_path)
         self.client = AsyncClient(base_url=self.base_url)

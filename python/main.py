@@ -10,6 +10,7 @@ from python.api.docs import docs_api
 from python.api.vision import vision_api
 from python.api.unitest_api import unitest_api
 from python.core.auth_be import AuthorizationServiceBE
+from python.mcp.server import mcp_app
 from python.models.base import sync_all_tables
 import python.models.model  # noqa: F401
 
@@ -69,3 +70,6 @@ app.include_router(gcs_api, prefix="/gcs", tags=["GCS API"])
 app.include_router(docs_api, prefix="/docs", tags=["Document AI API"])
 app.include_router(unitest_api, prefix="/unitest", tags=["Unit Test API"])
 app.include_router(auth_api, prefix="/auth", tags=["Auth API"])
+app.mount("/mcp", mcp_app)
+
+

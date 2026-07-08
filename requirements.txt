@@ -14,6 +14,7 @@ fastapi==0.138.1
 fastapi-cli==0.0.27
 fastapi-cloud-cli==0.21.0
 fastar==0.11.0
+fastmcp>=3.0.0,<4
 geomet==1.1.0
 google-api-core==2.31.0
 google-auth==2.55.0

@@ -1,7 +1,6 @@
-/target
-__pycache__/
-*.py[cod]
-.env
-/.venv
-SAMPLE_OCR.pdf
+.venv/
 AGENTS.md
+SAMPLE_OCR.pdf
+target/
+*__pycache__/
+.env

@@ -67,3 +67,7 @@ class VisionResponse(BaseModel):
 
 
 
+class GMSResponse(BaseModel):
+    input_text: str = Field(..., description="Input text for autocomplete")
+    language_code: Optional[str] = Field(None, description="Optional language code for autocomplete")
+    language_detection: str = Field(..., description="Language detection result for the input text")

@@ -1,1 +1,0 @@
-"""Python object mapper package."""

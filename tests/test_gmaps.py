@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import unittest
+from unittest.mock import patch
 
 import httpx
 
-from python.lib.gmaps import (
+from elrag.lib.gmaps import (
     DEFAULT_ROUTE_FIELDS,
     DEFAULT_TEXT_SEARCH_FIELDS,
     GoogleMapsService,
@@ -14,8 +16,9 @@ from python.lib.gmaps import (
 
 class GoogleMapsServiceTest(unittest.IsolatedAsyncioTestCase):
     def test_constructor_requires_api_key(self) -> None:
-        with self.assertRaisesRegex(ValueError, "GOOGLE_MAPS_API_KEY is not configured"):
-            GoogleMapsService(api_key="")
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaisesRegex(ValueError, "GMAPS_API_KEY is not configured"):
+                GoogleMapsService(api_key="")
 
     async def test_autocomplete_posts_to_places_autocomplete(self) -> None:
         requests = []

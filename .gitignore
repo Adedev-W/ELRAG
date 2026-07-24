@@ -3,4 +3,7 @@ AGENTS.md
 SAMPLE_OCR.pdf
 target/
 *__pycache__/
+*.pyc
 .env
+ELRAG-sdk/
+python/sdk/config/.elrag_secret.json

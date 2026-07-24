@@ -6,4 +6,3 @@ target/
 *.pyc
 .env
 ELRAG-sdk/
-python/sdk/config/.elrag_secret.json

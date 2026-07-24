@@ -1,0 +1,14 @@
+syntax = "proto3";
+package api;
+
+service Api {
+    rpc CallApi (GetApi) returns (OutApi);
+}
+
+message GetApi {
+    string name = 1;
+}
+
+message OutApi {
+    string message = 1;
+}

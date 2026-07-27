@@ -42,11 +42,17 @@ class Vision(Model):
     description = columns.Text()
     metadata = columns.Text()
     content = columns.Text()
-    
+
+
 @register_model
-class Client(Model):
-    __table_name__ = "client"
-    id = columns.UUID(primary_key=True)
-    client_name = columns.Text()
-    client_pinkey = columns.Text()
+class GoogleOAuthUser(Model):
+    __table_name__ = "google_oauth_user"
+    google_sub = columns.Text(primary_key=True)
+    email = columns.Text()
+    name = columns.Text()
+    picture = columns.Text()
+    is_active = columns.Boolean(default=False)
+    role = columns.Text(default="user")
     created_at = columns.DateTime()
+    updated_at = columns.DateTime()
+    last_login_at = columns.DateTime()

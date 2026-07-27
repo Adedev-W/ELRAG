@@ -31,13 +31,6 @@ class DocumentAIRequestBytes(BaseModel):
     mime_type: str = Field(..., description="MIME type of the document (e.g., application/pdf, image/jpeg)")
 
 
-
-
-class Client(BaseModel):
-    id: str = Field(..., description="Unique client identifier")
-    client_name: Optional[str] = Field(None, description="Optional client display name")
-
-
 class GCSUploadResponse(BaseModel):
     message: str = Field(..., description="Response message")
     cloud_storage_id: Optional[str] = Field(
@@ -64,8 +57,6 @@ class VisionResponse(BaseModel):
         None, description="Optional metadata or extracted text summary"
     )
     content: Optional[str] = Field(None, description="Optional raw content or OCR text")
-
-
 
 class GMSResponse(BaseModel):
     input_text: str = Field(..., description="Input text for autocomplete")

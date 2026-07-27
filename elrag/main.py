@@ -8,9 +8,14 @@ from elrag.api.auth.auth import auth_api
 from elrag.api.gcs import gcs_api
 from elrag.api.docs import docs_api
 from elrag.api.vision import vision_api
-from elrag.api.unitest_api import unitest_api
 from elrag.api.agent import agent_api
-from elrag.core.auth_be import AuthorizationServiceBE
+from elrag.core.auth_be import (
+    AuthConfigurationError,
+    AuthenticationError,
+    AuthorizationError,
+    AuthorizationServiceBE,
+    QuotaExceededError,
+)
 from elrag.mcp.server import mcp_app
 from elrag.models.base import sync_all_tables
 import elrag.models.model  # noqa: F401
@@ -24,42 +29,62 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 auth_service = AuthorizationServiceBE()
+PUBLIC_PATHS = {
+    "/auth/login",
+    "/auth/callback",
+    "/docs",
+    "/redoc",
+    "/openapi.json",
+}
 
 
 @app.middleware("http")
 async def enforce_client_authorization(request: Request, call_next):
     path = request.url.path
-    excluded_prefixes = (
-        "/unitest",
-        "/auth",
-        "/docs",
-        "/redoc",
-        "/openapi.json",
-        "/agent"
-    )
 
-    if path.startswith(excluded_prefixes):
+    if path in PUBLIC_PATHS:
         return await call_next(request)
 
-    client_id = request.headers.get("client_id") or request.headers.get("x-client-id")
-    if not client_id:
+    bearer_token = _extract_bearer_token(request)
+    if bearer_token is None:
         headers = auth_service.build_quota_headers()
         return JSONResponse(
-            status_code=400,
-            content={"message": "client_id header is required"},
+            status_code=401,
+            content={"message": "Authorization bearer token is required"},
             headers=headers,
         )
 
-    auth_result = auth_service.authorize_request(client_id)
-    headers = auth_service.build_quota_headers()
-    headers["X-Client-Id"] = auth_result.client_id or client_id
-
-    if not auth_result.allowed:
+    try:
+        request.state.user = auth_service.authenticate_bearer_token(bearer_token)
+        quota_limit, quota_remaining = auth_service.consume_quota()
+    except AuthConfigurationError as exc:
+        return JSONResponse(status_code=500, content={"message": str(exc)})
+    except AuthenticationError as exc:
+        headers = auth_service.build_quota_headers()
         return JSONResponse(
-            status_code=auth_result.status_code,
-            content={"message": auth_result.message},
+            status_code=401,
+            content={"message": str(exc)},
             headers=headers,
         )
+    except AuthorizationError as exc:
+        headers = auth_service.build_quota_headers()
+        return JSONResponse(
+            status_code=403,
+            content={"message": str(exc)},
+            headers=headers,
+        )
+    except QuotaExceededError as exc:
+        headers = auth_service.build_quota_headers()
+        return JSONResponse(
+            status_code=429,
+            content={"message": str(exc)},
+            headers=headers,
+        )
+
+    headers = {
+        "X-Global-Quota-Limit": str(quota_limit),
+        "X-Global-Quota-Remaining": str(quota_remaining),
+    }
 
     response: Response = await call_next(request)
     for key, value in headers.items():
@@ -67,12 +92,21 @@ async def enforce_client_authorization(request: Request, call_next):
     return response
 
 
+def _extract_bearer_token(request: Request) -> str | None:
+    authorization = request.headers.get("authorization")
+    if not authorization:
+        return None
+
+    scheme, _, token = authorization.partition(" ")
+    if scheme.lower() != "bearer" or not token:
+        return None
+    return token.strip()
+
+
 app.include_router(vision_api, prefix="/vision", tags=["Vision API"])
 app.include_router(gcs_api, prefix="/gcs", tags=["GCS API"])
 app.include_router(docs_api, prefix="/docs", tags=["Document AI API"])
-app.include_router(unitest_api, prefix="/unitest", tags=["Unit Test API"])
 app.include_router(auth_api, prefix="/auth", tags=["Auth API"])
 app.include_router(agent_api)
 app.mount("/mcp", mcp_app)
-
 

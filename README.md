@@ -47,3 +47,7 @@ cargo build
 - Google OAuth auth memakai `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` atau fallback `GOOGLE_SECRET_ID`, dan `AUTH_JWT_SECRET`.
 - Optional auth config: `GOOGLE_REDIRECT_URI`, `AUTH_TOKEN_TTL_SECONDS` default `3600`, dan `GLOBAL_API_QUOTA_LIMIT` default `1000`.
 - User OAuth disimpan di tabel `google_oauth_user`; user baru dibuat dengan `is_active=false` dan harus diaktifkan manual di Scylla sebelum bisa memakai endpoint protected.
+
+## Guides
+
+- [Mencoba Google OAuth Lokal](docs/oauth-local.md)

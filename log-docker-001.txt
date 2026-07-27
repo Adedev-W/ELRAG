@@ -1,0 +1,778 @@
+running: (['/opt/scylladb/scripts/scylla_dev_mode_setup', '--developer-mode', '1'],)
+running: (['/opt/scylladb/scripts/scylla_io_setup'],)
+running: (['mkdir', '-p', '/var/lib/scylla/.cassandra'],)
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-housekeeping.conf" during parsing
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-housekeeping.conf" during parsing
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-node-exporter.conf" during parsing
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-node-exporter.conf" during parsing
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-server.conf" during parsing
+2026-07-27 01:14:55,689 INFO Included extra file "/etc/supervisord.conf.d/scylla-server.conf" during parsing
+2026-07-27 01:14:55,698 INFO RPC interface 'supervisor' initialized
+2026-07-27 01:14:55,698 INFO RPC interface 'supervisor' initialized
+2026-07-27 01:14:55,698 CRIT Server 'inet_http_server' running without any HTTP authentication checking
+2026-07-27 01:14:55,698 CRIT Server 'inet_http_server' running without any HTTP authentication checking
+2026-07-27 01:14:55,701 INFO supervisord started with pid 25
+2026-07-27 01:14:55,701 INFO supervisord started with pid 25
+2026-07-27 01:14:56,704 INFO spawned: 'scylla' with pid 26
+2026-07-27 01:14:56,704 INFO spawned: 'scylla' with pid 26
+2026-07-27 01:14:56,708 INFO spawned: 'scylla-housekeeping' with pid 27
+2026-07-27 01:14:56,708 INFO spawned: 'scylla-housekeeping' with pid 27
+2026-07-27 01:14:56,712 INFO spawned: 'scylla-node-exporter' with pid 28
+2026-07-27 01:14:56,712 INFO spawned: 'scylla-node-exporter' with pid 28
+time=2026-07-27T01:14:56.746Z level=INFO source=node_exporter.go:216 msg="Starting node_exporter" version="(version=1.10.2, branch=HEAD, revision=654f19dee6a0c41de78a8d6d870e8c742cdb43b9)"
+time=2026-07-27T01:14:56.746Z level=INFO source=node_exporter.go:217 msg="Build context" build_context="(go=go1.25.3, platform=linux/amd64, user=root@b29b4019149a, date=20251025-20:05:32, tags=unknown)"
+time=2026-07-27T01:14:56.748Z level=INFO source=filesystem_common.go:265 msg="Parsed flag --collector.filesystem.mount-points-exclude" collector=filesystem flag=^/(dev|proc|run/credentials/.+|sys|var/lib/docker/.+|var/lib/containers/storage/.+)($|/)
+time=2026-07-27T01:14:56.748Z level=INFO source=filesystem_common.go:294 msg="Parsed flag --collector.filesystem.fs-types-exclude" collector=filesystem flag=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|erofs|sysfs|tracefs)$
+time=2026-07-27T01:14:56.749Z level=INFO source=ethtool_linux.go:105 msg="Parsed flag --collector.ethtool.metrics-include" collector=ethtool flag='(bw_in_allowance_exceeded|bw_out_allowance_exceeded|conntrack_allowance_exceeded|conntrack_allowance_available|linklocal_allowance_exceeded)'
+time=2026-07-27T01:14:56.749Z level=INFO source=diskstats_common.go:110 msg="Parsed flag --collector.diskstats.device-exclude" collector=diskstats flag=^(z?ram|loop|fd|(h|s|v|xv)d[a-z]|nvme\d+n\d+p)\d+$
+time=2026-07-27T01:14:56.753Z level=ERROR source=diskstats_linux.go:256 msg="Failed to open directory, disabling udev device properties" collector=diskstats path=/run/udev/data
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:135 msg="Enabled collectors"
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=arp
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=bonding
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=conntrack
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=cpu
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=cpufreq
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=diskstats
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=dmi
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=edac
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=entropy
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=ethtool
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=filefd
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=filesystem
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=interrupts
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=loadavg
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=mdadm
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=meminfo
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=netclass
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=netdev
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=netstat
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=nvme
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=os
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=pressure
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=schedstat
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=selinux
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=sockstat
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=softnet
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=stat
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=textfile
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=time
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=timex
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=uname
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=vmstat
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=watchdog
+time=2026-07-27T01:14:56.754Z level=INFO source=node_exporter.go:141 msg=xfs
+time=2026-07-27T01:14:56.763Z level=INFO source=tls_config.go:346 msg="Listening on" address=[::]:9100
+time=2026-07-27T01:14:56.763Z level=INFO source=tls_config.go:349 msg="TLS is disabled." http2=false address=[::]:9100
+[33mWARN [0m  init - Need to leave extra IOCBs in reserve for tools because the io_uring reactor backend is not available. Tools will fall-back to the epoll reactor backend, which requires more IOCBs to function.
+Scylla version 2026.1.3-0.20260510.c0bf728edb2b with build-id 74684d305c9c274a079436d20f13e4863ef63bc7 starting ...
+command used: "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --memory 1G --smp 1 --overprovisioned --listen-address 172.25.0.2 --rpc-address 172.25.0.2 --seed-provider-parameters seeds=172.25.0.2 --alternator-address 172.25.0.2 --blocked-reactor-notify-ms 25"
+pid: 26
+parsed command line options: [log-to-syslog, (positional) 0, log-to-stdout, (positional) 1, network-stack, (positional) posix, developer-mode: 1, memory, (positional) 1G, smp, (positional) 1, overprovisioned, listen-address: 172.25.0.2, rpc-address: 172.25.0.2, seed-provider-parameters: seeds=172.25.0.2, alternator-address: 172.25.0.2, blocked-reactor-notify-ms, (positional) 25]
+INFO  2026-07-27 01:14:56,946 seastar - Reactor backend: linux-aio
+WARN  2026-07-27 01:14:56,946 seastar - Creation of perf_event based stall detector failed: falling back to posix timer: std::system_error (error system:1, perf_event_open() failed: Operation not permitted)
+INFO  2026-07-27 01:14:56,952 [shard 0:main] io - IO queue was unable to find a suitable maximum request length, the search was cut-off early at: 16MB
+INFO  2026-07-27 01:14:56,952 [shard 0:main] io - IO queue was unable to find a suitable maximum request length, the search was cut-off early at: 16MB
+INFO  2026-07-27 01:14:56,954 [shard 0:main] seastar - updated: blocked-reactor-notify-ms=36000000000
+INFO  2026-07-27 01:14:56,978 [shard 0:main] init - installing SIGHUP handler
+INFO  2026-07-27 01:14:56,983 [shard 0:main] init - Scylla version 2026.1.3-0.20260510.c0bf728edb2b with build-id 74684d305c9c274a079436d20f13e4863ef63bc7 starting ...
+
+WARN  2026-07-27 01:14:56,983 [shard 0:main] init - Only 974 MiB per shard; this is below the recommended minimum of 1 GiB/shard; continuing since running in developer mode
+WARN  2026-07-27 01:14:56,983 [shard 0:main] init - I/O Scheduler is not properly configured! This is a non-supported setup, and performance is expected to be unpredictably bad.
+ Reason found: none of --io-properties and --io-properties-file are set.
+To properly configure the I/O Scheduler, run the scylla_io_setup utility shipped with Scylla.
+
+INFO  2026-07-27 01:14:56,983 [shard 0:main] init - starting feature service
+INFO  2026-07-27 01:14:56,984 [shard 0:main] init - starting API server
+INFO  2026-07-27 01:14:56,985 [shard 0:main] init - starting prometheus API server
+INFO  2026-07-27 01:14:56,985 [shard 0:main] init - creating snitch
+INFO  2026-07-27 01:14:56,986 [shard 0:main] init - starting tokens manager
+INFO  2026-07-27 01:14:56,986 [shard 0:main] init - starting effective_replication_map factory
+INFO  2026-07-27 01:14:56,986 [shard 0:main] init - starting migration manager notifier
+INFO  2026-07-27 01:14:56,986 [shard 0:main] init - creating and verifying directories
+INFO  2026-07-27 01:14:57,628 [shard 0:main] init - starting task manager
+INFO  2026-07-27 01:14:57,632 [shard 0:main] init - starting disk space monitor
+INFO  2026-07-27 01:14:57,632 [shard 0:main] init - starting compaction_manager
+INFO  2026-07-27 01:14:57,632 [shard 0:main] task_manager - Registered module compaction
+INFO  2026-07-27 01:14:57,632 [shard 0:main] init - starting storage manager
+INFO  2026-07-27 01:14:57,633 [shard 0:main] init - starting service level controller
+INFO  2026-07-27 01:14:57,634 [shard 0:main] compaction_manager - Set unlimited compaction bandwidth
+INFO  2026-07-27 01:14:57,634 [shard 0:main] init - starting lang manager
+INFO  2026-07-27 01:14:57,635 [shard 0:main] init - starting database
+INFO  2026-07-27 01:14:57,639 [shard 0:main] init - starting per-shard database core
+INFO  2026-07-27 01:14:57,640 [shard 0:main] compaction_manager - Asked to enable
+INFO  2026-07-27 01:14:57,640 [shard 0:main] compaction_manager - Enabled
+INFO  2026-07-27 01:14:57,640 [shard 0:main] seastar - updated: blocked-reactor-notify-ms=25
+INFO  2026-07-27 01:14:57,640 [shard 0:main] init - starting storage proxy
+INFO  2026-07-27 01:14:57,678 [shard 0:main] init - starting a vector store service
+INFO  2026-07-27 01:14:57,678 [shard 0:main] vector_store_client - Vector Store service URIs are empty, disabling Vector Store service
+INFO  2026-07-27 01:14:57,678 [shard 0:main] vector_store_client - Vector Store service URIs are empty, disabling Vector Store service
+INFO  2026-07-27 01:14:57,678 [shard 0:main] init - starting query processor
+INFO  2026-07-27 01:14:57,680 [shard 0:main] init - starting lifecycle notifier
+INFO  2026-07-27 01:14:57,680 [shard 0:main] init - creating tracing
+INFO  2026-07-27 01:14:57,681 [shard 0:main] init - Scylla API server listening on 127.0.0.1:10000 ...
+INFO  2026-07-27 01:14:57,681 [shard 0:main] init - starting system keyspace
+INFO  2026-07-27 01:14:57,681 [shard 0:main] init - loading system sstables
+2026-07-27 01:14:58,682 INFO success: scylla entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-07-27 01:14:58,682 INFO success: scylla entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-07-27 01:14:58,682 INFO success: scylla-housekeeping entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-07-27 01:14:58,682 INFO success: scylla-housekeeping entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-07-27 01:14:58,682 INFO success: scylla-node-exporter entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-07-27 01:14:58,682 INFO success: scylla-node-exporter entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Populating Keyspace system_schema
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF scylla_aggregates id=08d8cb28-9202-3371-a968-ad926e0fdc37 version=0932cbed-85be-3dd2-b382-ebc0a1b8ff67 storage=/var/lib/scylla/data/system_schema/scylla_aggregates-08d8cb2892023371a968ad926e0fdc37
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF scylla_keyspaces id=fa0ea2bd-608f-3e74-9b1e-b84b46b33adf version=3f0166c1-979e-3cf7-995c-ecd4141889b0 storage=/var/lib/scylla/data/system_schema/scylla_keyspaces-fa0ea2bd608f3e749b1eb84b46b33adf
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF scylla_tables id=5d912ff1-f759-3665-b2c8-8042ab5103dd version=1cd1fbf6-7ec2-39c0-bd43-84d0662bc7be storage=/var/lib/scylla/data/system_schema/scylla_tables-5d912ff1f7593665b2c88042ab5103dd
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF columns id=24101c25-a2ae-3af7-87c1-b40ee1aca33f version=965bb399-b6ce-3719-a2ab-c553007ca96d storage=/var/lib/scylla/data/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF dropped_columns id=5e7583b5-f3f4-3af1-9a39-b7e1d6f5f11f version=991656e6-6c75-3880-8773-94ef09ea20e9 storage=/var/lib/scylla/data/system_schema/dropped_columns-5e7583b5f3f43af19a39b7e1d6f5f11f
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF triggers id=4df70b66-6b05-3251-95a1-32b54005fd48 version=93d9681a-4c75-3eee-8ee0-fca7551d4b6d storage=/var/lib/scylla/data/system_schema/triggers-4df70b666b05325195a132b54005fd48
+INFO  2026-07-27 01:14:59,095 [shard 0:main] database - Keyspace system_schema: Reading CF types id=5a8b1ca8-6602-3f77-a045-9273d308917a version=de9c5552-145c-3374-9d6d-6c26e699a4c5 storage=/var/lib/scylla/data/system_schema/types-5a8b1ca866023f77a0459273d308917a
+INFO  2026-07-27 01:14:59,096 [shard 0:main] database - Keyspace system_schema: Reading CF keyspaces id=abac5682-dea6-31c5-b535-b3d6cffd0fb6 version=6885af97-d198-31ed-b795-c8cfab682e1e storage=/var/lib/scylla/data/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6
+INFO  2026-07-27 01:14:59,096 [shard 0:main] database - Keyspace system_schema: Reading CF functions id=96489b79-80be-3e14-a701-66a0b9159450 version=b115589d-0bec-3f6a-9146-b649316c4e90 storage=/var/lib/scylla/data/system_schema/functions-96489b7980be3e14a70166a0b9159450
+INFO  2026-07-27 01:14:59,096 [shard 0:main] database - Keyspace system_schema: Reading CF aggregates id=924c5587-2e3a-345b-b10c-12f37c1ba895 version=92ed268a-46ff-3368-a6b0-85003702d44f storage=/var/lib/scylla/data/system_schema/aggregates-924c55872e3a345bb10c12f37c1ba895
+INFO  2026-07-27 01:14:59,096 [shard 0:main] database - Keyspace system_schema: Reading CF tables id=afddfb9d-bc1e-3068-8056-eed6c302ba09 version=5fd800ab-c110-3c56-9ca7-0fba0e76741a storage=/var/lib/scylla/data/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09
+INFO  2026-07-27 01:14:59,097 [shard 0:main] database - Keyspace system_schema: Reading CF indexes id=0feb57ac-311f-382f-ba6d-9024d305702f version=981e19d8-4580-3f54-9995-0c2a0aa548e8 storage=/var/lib/scylla/data/system_schema/indexes-0feb57ac311f382fba6d9024d305702f
+INFO  2026-07-27 01:14:59,097 [shard 0:main] database - Keyspace system_schema: Reading CF computed_columns id=cc7c7069-3740-33c1-92a4-c3de78dbd2c4 version=aaac493b-441b-325d-afc6-66750f3182da storage=/var/lib/scylla/data/system_schema/computed_columns-cc7c7069374033c192a4c3de78dbd2c4
+INFO  2026-07-27 01:14:59,097 [shard 0:main] database - Keyspace system_schema: Reading CF views id=9786ac1c-dd58-3201-a7cd-ad556410c985 version=0b48b48c-f4c4-3aeb-ac54-b2edf89b3e51 storage=/var/lib/scylla/data/system_schema/views-9786ac1cdd583201a7cdad556410c985
+INFO  2026-07-27 01:14:59,097 [shard 0:main] database - Keyspace system_schema: Reading CF view_virtual_columns id=08843b63-45dc-3be2-9798-a0418295cfaa version=3d503008-db1e-3a76-88f4-aef847668f2d storage=/var/lib/scylla/data/system_schema/view_virtual_columns-08843b6345dc3be29798a0418295cfaa
+INFO  2026-07-27 01:14:59,207 [shard 0:main] database - Populating Keyspace system
+INFO  2026-07-27 01:14:59,207 [shard 0:main] database - Keyspace system: Reading CF tablets id=fd4f7a46-96bd-3e73-91bf-99eb77e82a5c version=7699d5b9-8cc8-30a4-b0d7-c1b90d99f50e storage=/var/lib/scylla/data/system/tablets-fd4f7a4696bd3e7391bf99eb77e82a5c
+INFO  2026-07-27 01:14:59,207 [shard 0:main] database - Keyspace system: Reading CF view_building_tasks id=4fae43d9-1891-3155-82ae-ac4991a79070 version=8624635a-0b87-35db-a283-85728e95247f storage=/var/lib/scylla/data/system/view_building_tasks-4fae43d91891315582aeac4991a79070
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF dicts id=c9c77c6f-c08c-3303-9b94-65dd3d25f3ba version=09ac496b-dd80-3076-b2f9-842f2d345e8d storage=/var/lib/scylla/data/system/dicts-c9c77c6fc08c33039b9465dd3d25f3ba
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF view_build_status_v2 id=e0ab84ed-510d-374c-bcc0-973d28d13640 version=94c08ea5-c109-3def-8f30-d10d7f156faf storage=/var/lib/scylla/data/system/view_build_status_v2-e0ab84ed510d374cbcc0973d28d13640
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF cdc_streams_history id=9df87440-1a56-359f-93fe-0a659b6cbb26 version=e18b354a-76bf-346f-bb2c-64fcd94241c0 storage=/var/lib/scylla/data/system/cdc_streams_history-9df874401a56359f93fe0a659b6cbb26
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF service_levels_v2 id=961a7251-d58e-3169-ab49-3391eec5b75d version=e8b9ecff-d293-3e3a-b350-66db1e0c6ee3 storage=/var/lib/scylla/data/system/service_levels_v2-961a7251d58e3169ab493391eec5b75d
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF topology_requests id=b3068525-d0f2-39c2-8250-584f9b1bf460 version=c0d60460-56b3-35e2-a6de-0022f73bce59 storage=/var/lib/scylla/data/system/topology_requests-b3068525d0f239c28250584f9b1bf460
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF cdc_generations_v3 id=c697df3f-5539-3ef5-b003-843be7ba1422 version=c2f8dfed-cc7d-3ab2-bb60-2fa985d6be3c storage=/var/lib/scylla/data/system/cdc_generations_v3-c697df3f55393ef5b003843be7ba1422
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF discovery id=1ef3d792-4f26-3706-a049-fc39024f49c5 version=431ad718-f6cb-3eea-8f81-6cf410d7ce60 storage=/var/lib/scylla/data/system/discovery-1ef3d7924f263706a049fc39024f49c5
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF group0_history id=027e42f5-683a-3ed7-b404-a0100762063c version=fb2d07e3-5771-3937-955b-dd6afbd24917 storage=/var/lib/scylla/data/system/group0_history-027e42f5683a3ed7b404a0100762063c
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF raft id=3e17774c-57f5-3993-9625-327cbafbf5bb version=cb4c3d09-71a8-3fbd-a30b-5c3c132cd304 storage=/var/lib/scylla/data/system/raft-3e17774c57f539939625327cbafbf5bb
+INFO  2026-07-27 01:14:59,208 [shard 0:main] database - Keyspace system: Reading CF commitlog_cleanups id=8cd016f4-846b-3ba2-9ed7-50eb431cd0e4 version=742133b3-db54-3085-8066-e2c9816e15ab storage=/var/lib/scylla/data/system/commitlog_cleanups-8cd016f4846b3ba29ed750eb431cd0e4
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF role_members id=ea2318da-4fdd-33d0-87c1-91435088e326 version=c6943cfa-1253-32fc-9cf7-bd881a828623 storage=/var/lib/scylla/data/system/role_members-ea2318da4fdd33d087c191435088e326
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF raft_snapshot_config id=43bba703-ec9d-3ae2-8011-d1f8476aa272 version=c485adda-07e3-353e-91ef-b0080fc511d6 storage=/var/lib/scylla/data/system/raft_snapshot_config-43bba703ec9d3ae28011d1f8476aa272
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF peer_events id=59dfeaea-8db2-3341-91ef-109974d81484 version=3666dd8d-67a2-37af-b83f-ac2f87951bc0 storage=/var/lib/scylla/data/system/peer_events-59dfeaea8db2334191ef109974d81484
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF paxos id=b7b7f0c2-fd0a-3410-8c05-3ef614bb7c2d version=9dae4803-74c7-34c4-8406-9d002f7bd447 storage=/var/lib/scylla/data/system/paxos-b7b7f0c2fd0a34108c053ef614bb7c2d
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF cdc_streams_state id=0997ec18-9e18-3ede-8064-49eae76b683e version=7cefad29-2cff-39a2-a938-58bc2e28e192 storage=/var/lib/scylla/data/system/cdc_streams_state-0997ec189e183ede806449eae76b683e
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF corrupt_data id=0c2b57b8-3fa8-312d-bcd0-097198247a1f version=ab978e96-8af6-35f8-90f8-44ffdaa8b3a2 storage=/var/lib/scylla/data/system/corrupt_data-0c2b57b83fa8312dbcd0097198247a1f
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF hints id=2666e205-73ef-38b3-90fe-fecf96e8f0c7 version=92327ed9-2027-3f40-84d4-fe53b583f32b storage=/var/lib/scylla/data/system/hints-2666e20573ef38b390fefecf96e8f0c7
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF cdc_local id=0bcaffd4-0c83-3ead-ad13-dc1d5015b77c version=f9f1483c-8f8a-3947-b0e7-97ced0a99de9 storage=/var/lib/scylla/data/system/cdc_local-0bcaffd40c833eadad13dc1d5015b77c
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF repair_tasks id=d3db5cdf-597a-340c-af8c-9bedfaa0c460 version=5ce5390a-8afa-358f-a8c1-848efebe6e6d storage=/var/lib/scylla/data/system/repair_tasks-d3db5cdf597a340caf8c9bedfaa0c460
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF sstable_activity id=5a1ff267-ace0-3f12-8563-cfae6103c65e version=c852560d-4540-3561-94a2-fc2d140228ec storage=/var/lib/scylla/data/system/sstable_activity-5a1ff267ace03f128563cfae6103c65e
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF IndexInfo id=9f5c6374-d485-3229-9a0a-5094af9ad1e3 version=c5e87d6a-788b-370f-9451-64d19aff1b5a storage=/var/lib/scylla/data/system/IndexInfo-9f5c6374d48532299a0a5094af9ad1e3
+INFO  2026-07-27 01:14:59,209 [shard 0:main] database - Keyspace system: Reading CF repair_history id=8e097009-c753-3518-a0ec-217f75f5dffa version=d831a1a1-ead9-3957-9f7b-dd3bf4294518 storage=/var/lib/scylla/data/system/repair_history-8e097009c7533518a0ec217f75f5dffa
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF scylla_local id=2972ec7f-fb20-38dd-aac1-d876f2e3fcbd version=51341235-72c8-3f46-b14f-e1b93fbb4207 storage=/var/lib/scylla/data/system/scylla_local-2972ec7ffb2038ddaac1d876f2e3fcbd
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF peers id=37f71aca-7dc2-383b-a706-72528af04d4f version=dcfa29ca-8136-3973-b0e4-525eb4e0742e storage=/var/lib/scylla/data/system/peers-37f71aca7dc2383ba70672528af04d4f
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF large_rows id=40550f66-0858-39a0-9430-f27fc08034e9 version=086d8c3b-7779-30f9-8c7d-d490e20a587a storage=/var/lib/scylla/data/system/large_rows-40550f66085839a09430f27fc08034e9
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF role_permissions id=42d45091-4c22-3d60-994c-f4dde1153478 version=94ddd667-1941-3a98-995f-54eaf369ba5a storage=/var/lib/scylla/data/system/role_permissions-42d450914c223d60994cf4dde1153478
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF built_views id=4b3c50a9-ea87-3d76-9101-6dbc9c38494a version=7dd4fbd2-7793-3e91-911d-fdb02e3a9497 storage=/var/lib/scylla/data/system/built_views-4b3c50a9ea873d7691016dbc9c38494a
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF batchlog id=0290003c-977e-397c-ac3e-fdfdc01d626b version=1f504ac7-350f-37aa-8a9e-105b1325d8e3 storage=/var/lib/scylla/data/system/batchlog-0290003c977e397cac3efdfdc01d626b
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF local id=7ad54392-bcdd-35a6-8417-4e047860b377 version=c8cb364f-e676-3306-a23f-c9f235907089 storage=/var/lib/scylla/data/system/local-7ad54392bcdd35a684174e047860b377
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF compactions_in_progress id=55080ab0-5d9c-3886-90a4-acb25fe1f77b version=29399fd0-851f-3849-9ae7-db4d9f72a91a storage=/var/lib/scylla/data/system/compactions_in_progress-55080ab05d9c388690a4acb25fe1f77b
+INFO  2026-07-27 01:14:59,210 [shard 0:main] database - Keyspace system: Reading CF compaction_history id=b4dbb7b4-dc49-3fb5-b3bf-ce6e434832ca version=76d12eea-fe99-3390-828a-28474bb0e823 storage=/var/lib/scylla/data/system/compaction_history-b4dbb7b4dc493fb5b3bfce6e434832ca
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF client_routes id=387c67d8-f449-3e36-a59c-a61e4e2df25e version=7f96792e-6453-38ca-a68d-3814e8935e12 storage=/var/lib/scylla/data/system/client_routes-387c67d8f4493e36a59ca61e4e2df25e
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF roles id=23392e27-9e45-3292-b429-12845e17c153 version=5fde116a-2d74-3107-90b5-22fa0ddac10e storage=/var/lib/scylla/data/system/roles-23392e279e453292b42912845e17c153
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF topology id=5be1feb3-929e-3df9-8da8-d771c36129a0 version=c7f79144-3299-3cdd-acf2-d86137f1f8f1 storage=/var/lib/scylla/data/system/topology-5be1feb3929e3df98da8d771c36129a0
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF range_xfers id=55d76438-4e55-3f8b-9f6e-676d4af3976d version=037f35d3-573f-33a2-a3c4-8ffe6eaebb90 storage=/var/lib/scylla/data/system/range_xfers-55d764384e553f8b9f6e676d4af3976d
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF size_estimates id=618f817b-005f-3678-b8a4-53f3930b8e86 version=613ab070-8bfb-3118-aa00-227fc6375dd4 storage=/var/lib/scylla/data/system/size_estimates-618f817b005f3678b8a453f3930b8e86
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF large_partitions id=8a7fe624-96b0-34b1-b90e-f71bddcdd2d3 version=f62deb77-a400-3cbe-a489-8ee134c20d9d storage=/var/lib/scylla/data/system/large_partitions-8a7fe62496b034b1b90ef71bddcdd2d3
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF batchlog_v2 id=51b51270-f624-3ef5-8c86-cf6ea2d7e837 version=fd507313-a603-38d8-8fb2-eb8a81c9bcf8 storage=/var/lib/scylla/data/system/batchlog_v2-51b51270f6243ef58c86cf6ea2d7e837
+INFO  2026-07-27 01:14:59,211 [shard 0:main] database - Keyspace system: Reading CF scylla_table_schema_history id=0191a53e-40f0-31d4-9171-b0d19ffb17b4 version=fefc4525-f763-30fe-9e38-ace85f1fd778 storage=/var/lib/scylla/data/system/scylla_table_schema_history-0191a53e40f031d49171b0d19ffb17b4
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF raft_snapshots id=6fa537a7-7e97-344e-9034-b69c7ef69be6 version=aa7dfdf3-05b5-389e-8c69-96171192c454 storage=/var/lib/scylla/data/system/raft_snapshots-6fa537a77e97344e9034b69c7ef69be6
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF role_attributes id=f7c2e5a6-f361-3cbd-936a-91c7c1e1051d version=de42c8f2-2054-388f-9469-4eec740291ec storage=/var/lib/scylla/data/system/role_attributes-f7c2e5a6f3613cbd936a91c7c1e1051d
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF large_cells id=ead8bbc5-f146-3ae1-9f71-0b11f9a1d296 version=b1d2e97c-c06d-3ad5-a50b-2895610e3b84 storage=/var/lib/scylla/data/system/large_cells-ead8bbc5f1463ae19f710b11f9a1d296
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF views_builds_in_progress id=b7f2c108-78cd-3c80-9cd5-d609b2bd149c version=3b4570f3-b3d5-3131-82c6-703495f4efa7 storage=/var/lib/scylla/data/system/views_builds_in_progress-b7f2c10878cd3c809cd5d609b2bd149c
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF scylla_views_builds_in_progress id=a04c7bfd-1e13-36c9-a44d-f22da352281d version=08b2ace6-46f2-3666-82c2-4fc531ee6e19 storage=/var/lib/scylla/data/system/scylla_views_builds_in_progress-a04c7bfd1e1336c9a44df22da352281d
+INFO  2026-07-27 01:14:59,212 [shard 0:main] database - Keyspace system: Reading CF truncated id=38c19fd0-fb86-3310-a4b7-0d0cc66628aa version=26855f4b-1fc1-35f8-ad96-4152a9835ddb storage=/var/lib/scylla/data/system/truncated-38c19fd0fb863310a4b70d0cc66628aa
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TOPOLOGY_NOOP_REQUEST is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SIZE_BASED_LOAD_BALANCING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature CLIENT_ROUTES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature MS_SSTABLE_FORMAT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature PARALLEL_TABLET_DRAINING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature REPAIR_MSG_SPLIT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TRUNCATE_AS_TOPOLOGY_OPERATION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TYPED_ERRORS_IN_READ_RPC is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature AGGREGATE_STORAGE_OPTIONS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature VIEW_BUILDING_COORDINATOR is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature HOST_ID_BASED_HINTED_HANDOFF is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SECONDARY_INDEXES_ON_STATIC_COLUMNS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TOPOLOGY_REQUESTS_TYPE_COLUMN is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature BATCHLOG_V2 is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature RANGE_TOMBSTONE_AND_DEAD_ROWS_DETECTION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature LARGE_COLLECTION_DETECTION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature UDA_NATIVE_PARALLELIZED_AGGREGATION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature MAINTENANCE_TENANT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLE_DIGEST_INSENSITIVE_TO_EXPIRY is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature CDC_GENERATIONS_V2 is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature NATIVE_REVERSE_QUERIES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature PARALLELIZED_AGGREGATION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SEPARATE_PAGE_SIZE_AND_SAFETY_LIMIT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature RANGE_SCAN_DATA_VARIANT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature COLLECTION_INDEXING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature GROUP0_SCHEMA_VERSIONING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SUPPORTS_RAFT_CLUSTER_MANAGEMENT is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature UDA is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_MERGE is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature EMPTY_REPLICA_PAGES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TOMBSTONE_GC_OPTIONS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SUPPORTS_CONSISTENT_TOPOLOGY_CHANGES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature ALTERNATOR_TTL is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature VIEW_BUILD_STATUS_ON_GROUP0 is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature VIEWS_WITH_TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature GROUP0_LIMITED_VOTERS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature COMPACTION_HISTORY_UPGRADE is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature FRAGMENTED_COMMITLOG_ENTRIES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature EMPTY_REPLICA_MUTATION_PAGES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature FILE_STREAM is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_INCREMENTAL_REPAIR is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature REMOVENODE_WITH_LEFT_TOKEN_RING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature DRIVER_SERVICE_LEVEL is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TOPOLOGY_GLOBAL_REQUEST_QUEUE is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature ADDRESS_NODES_BY_HOST_IDS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature REPAIR_BASED_TABLET_REBUILD is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_RACK_AWARE_VIEW_PAIRING is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_MIGRATION_VIRTUAL_TASK is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_RESIZE_VIRTUAL_TASK is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_REPAIR_SCHEDULER is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature IN_MEMORY_TABLES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature COLOCATED_TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature WORKLOAD_PRIORITIZATION is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature COUNTERS_WITH_TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_REPAIR_TASKS_TABLE is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature COMPRESSION_DICTS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature RACK_LIST_RF is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature CDC_WITH_TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_OPTIONS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature ZERO_TOKEN_NODES is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature TABLET_LOAD_STATS_V2 is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature SSTABLE_COMPRESSION_DICTS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature LWT_WITH_TABLETS is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature ENFORCED_RAFT_RPC_SCHEDULING_GROUP is enabled
+INFO  2026-07-27 01:14:59,319 [shard 0:main] features - Feature LOAD_AND_STREAM_ABORT_RPC_MESSAGE is enabled
+INFO  2026-07-27 01:14:59,321 [shard 0:main] init - starting gossip address map
+INFO  2026-07-27 01:15:02,224 [shard 0:main] init - starting compressor_tracker
+INFO  2026-07-27 01:15:02,224 [shard 0:main] init - starting messaging service
+INFO  2026-07-27 01:15:02,228 [shard 0:main] init - starting gossiper
+WARN  2026-07-27 01:15:02,228 [shard 0:main] init - Using default cluster name is not recommended. Using a unique cluster name will reduce the chance of adding nodes to the wrong cluster by mistake
+INFO  2026-07-27 01:15:02,237 [shard 0:main] init - seeds={172.25.0.2}, listen_address=172.25.0.2, broadcast_address=172.25.0.2
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting direct failure detector pinger service
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting direct failure detector service
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting Raft Group
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting tablet allocator
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting mapreduce service
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting migration manager
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting topology state machine
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting system distributed keyspace
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting view update generator
+INFO  2026-07-27 01:15:02,238 [shard 0:main] init - starting the view builder
+INFO  2026-07-27 01:15:02,239 [shard 0:main] init - starting the view building worker
+INFO  2026-07-27 01:15:02,239 [shard 0:main] init - starting repair service
+INFO  2026-07-27 01:15:02,239 [shard 0:main] repair - Setting max_repair_memory=102131302, max_repair_memory_per_range=33554432, max_repair_ranges_in_parallel=1
+INFO  2026-07-27 01:15:02,239 [shard 0:main] task_manager - Registered module repair
+INFO  2026-07-27 01:15:02,239 [shard 0:main] repair - Loading repair history for keyspace=system, table=cdc_streams_history, table_uuid=9df87440-1a56-359f-93fe-0a659b6cbb26
+INFO  2026-07-27 01:15:02,239 [shard 0:main] repair - Loading repair history for keyspace=system, table=cdc_streams_state, table_uuid=0997ec18-9e18-3ede-8064-49eae76b683e
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=range_xfers, table_uuid=55d76438-4e55-3f8b-9f6e-676d4af3976d
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=peer_events, table_uuid=59dfeaea-8db2-3341-91ef-109974d81484
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=compactions_in_progress, table_uuid=55080ab0-5d9c-3886-90a4-acb25fe1f77b
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=batchlog_v2, table_uuid=51b51270-f624-3ef5-8c86-cf6ea2d7e837
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=scylla_local, table_uuid=2972ec7f-fb20-38dd-aac1-d876f2e3fcbd
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=scylla_views_builds_in_progress, table_uuid=a04c7bfd-1e13-36c9-a44d-f22da352281d
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=raft, table_uuid=3e17774c-57f5-3993-9625-327cbafbf5bb
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=truncated, table_uuid=38c19fd0-fb86-3310-a4b7-0d0cc66628aa
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=batchlog, table_uuid=0290003c-977e-397c-ac3e-fdfdc01d626b
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=role_permissions, table_uuid=42d45091-4c22-3d60-994c-f4dde1153478
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=role_members, table_uuid=ea2318da-4fdd-33d0-87c1-91435088e326
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system, table=large_cells, table_uuid=ead8bbc5-f146-3ae1-9f71-0b11f9a1d296
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=scylla_keyspaces, table_uuid=fa0ea2bd-608f-3e74-9b1e-b84b46b33adf
+INFO  2026-07-27 01:15:02,240 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=keyspaces, table_uuid=abac5682-dea6-31c5-b535-b3d6cffd0fb6
+INFO  2026-07-27 01:15:02,241 [shard 0:main] init - starting streaming service
+INFO  2026-07-27 01:15:02,241 [shard 0:main] init - starting streaming manager
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - starting auth cache
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing client routes service
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing strongly consistent groups manager
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing strongly consistent coordinator
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing storage service
+INFO  2026-07-27 01:15:02,242 [shard 0:main] storage_service - Started node_ops_abort_thread
+INFO  2026-07-27 01:15:02,242 [shard 0:main] task_manager - Registered module node_ops
+INFO  2026-07-27 01:15:02,242 [shard 0:main] task_manager - Registered module tablets
+INFO  2026-07-27 01:15:02,242 [shard 0:main] task_manager - Registered module global_topology_requests
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing query processor remote part
+INFO  2026-07-27 01:15:02,242 [shard 0:main] init - initializing virtual tables
+INFO  2026-07-27 01:15:02,243 [shard 0:main] stream_session - Set unlimited streaming bandwidth
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=sstable_activity, table_uuid=5a1ff267-ace0-3f12-8563-cfae6103c65e
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=hints, table_uuid=2666e205-73ef-38b3-90fe-fecf96e8f0c7
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=roles, table_uuid=23392e27-9e45-3292-b429-12845e17c153
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=tables, table_uuid=afddfb9d-bc1e-3068-8056-eed6c302ba09
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=scylla_tables, table_uuid=5d912ff1-f759-3665-b2c8-8042ab5103dd
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=columns, table_uuid=24101c25-a2ae-3af7-87c1-b40ee1aca33f
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=cdc_generations_v3, table_uuid=c697df3f-5539-3ef5-b003-843be7ba1422
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=aggregates, table_uuid=924c5587-2e3a-345b-b10c-12f37c1ba895
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=role_attributes, table_uuid=f7c2e5a6-f361-3cbd-936a-91c7c1e1051d
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=views, table_uuid=9786ac1c-dd58-3201-a7cd-ad556410c985
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=peers, table_uuid=37f71aca-7dc2-383b-a706-72528af04d4f
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=view_virtual_columns, table_uuid=08843b63-45dc-3be2-9798-a0418295cfaa
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=dropped_columns, table_uuid=5e7583b5-f3f4-3af1-9a39-b7e1d6f5f11f
+INFO  2026-07-27 01:15:02,246 [shard 0:main] repair - Loading repair history for keyspace=system, table=tablets, table_uuid=fd4f7a46-96bd-3e73-91bf-99eb77e82a5c
+INFO  2026-07-27 01:15:02,247 [shard 0:main] repair - Loading repair history for keyspace=system, table=scylla_table_schema_history, table_uuid=0191a53e-40f0-31d4-9171-b0d19ffb17b4
+INFO  2026-07-27 01:15:02,247 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=types, table_uuid=5a8b1ca8-6602-3f77-a045-9273d308917a
+INFO  2026-07-27 01:15:02,249 [shard 0:main] init - starting Raft Group Registry service
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=functions, table_uuid=96489b79-80be-3e14-a701-66a0b9159450
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=commitlog_cleanups, table_uuid=8cd016f4-846b-3ba2-9ed7-50eb431cd0e4
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=raft_snapshot_config, table_uuid=43bba703-ec9d-3ae2-8011-d1f8476aa272
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=computed_columns, table_uuid=cc7c7069-3740-33c1-92a4-c3de78dbd2c4
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=compaction_history, table_uuid=b4dbb7b4-dc49-3fb5-b3bf-ce6e434832ca
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=size_estimates, table_uuid=618f817b-005f-3678-b8a4-53f3930b8e86
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=paxos, table_uuid=b7b7f0c2-fd0a-3410-8c05-3ef614bb7c2d
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=large_partitions, table_uuid=8a7fe624-96b0-34b1-b90e-f71bddcdd2d3
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=view_building_tasks, table_uuid=4fae43d9-1891-3155-82ae-ac4991a79070
+INFO  2026-07-27 01:15:02,250 [shard 0:main] repair - Loading repair history for keyspace=system, table=large_rows, table_uuid=40550f66-0858-39a0-9430-f27fc08034e9
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=IndexInfo, table_uuid=9f5c6374-d485-3229-9a0a-5094af9ad1e3
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=topology_requests, table_uuid=b3068525-d0f2-39c2-8250-584f9b1bf460
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=corrupt_data, table_uuid=0c2b57b8-3fa8-312d-bcd0-097198247a1f
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=repair_history, table_uuid=8e097009-c753-3518-a0ec-217f75f5dffa
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=built_views, table_uuid=4b3c50a9-ea87-3d76-9101-6dbc9c38494a
+INFO  2026-07-27 01:15:02,251 [shard 0:main] repair - Loading repair history for keyspace=system, table=topology, table_uuid=5be1feb3-929e-3df9-8da8-d771c36129a0
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=service_levels_v2, table_uuid=961a7251-d58e-3169-ab49-3391eec5b75d
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=local, table_uuid=7ad54392-bcdd-35a6-8417-4e047860b377
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=repair_tasks, table_uuid=d3db5cdf-597a-340c-af8c-9bedfaa0c460
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=views_builds_in_progress, table_uuid=b7f2c108-78cd-3c80-9cd5-d609b2bd149c
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=cdc_local, table_uuid=0bcaffd4-0c83-3ead-ad13-dc1d5015b77c
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=indexes, table_uuid=0feb57ac-311f-382f-ba6d-9024d305702f
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=raft_snapshots, table_uuid=6fa537a7-7e97-344e-9034-b69c7ef69be6
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=triggers, table_uuid=4df70b66-6b05-3251-95a1-32b54005fd48
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=client_routes, table_uuid=387c67d8-f449-3e36-a59c-a61e4e2df25e
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=group0_history, table_uuid=027e42f5-683a-3ed7-b404-a0100762063c
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system, table=discovery, table_uuid=1ef3d792-4f26-3706-a049-fc39024f49c5
+INFO  2026-07-27 01:15:02,252 [shard 0:main] repair - Loading repair history for keyspace=system_schema, table=scylla_aggregates, table_uuid=08d8cb28-9202-3371-a968-ad926e0fdc37
+INFO  2026-07-27 01:15:02,253 [shard 0:main] repair - Loading repair history for keyspace=system, table=view_build_status_v2, table_uuid=e0ab84ed-510d-374c-bcc0-973d28d13640
+INFO  2026-07-27 01:15:02,253 [shard 0:main] repair - Loading repair history for keyspace=system, table=dicts, table_uuid=c9c77c6f-c08c-3303-9b94-65dd3d25f3ba
+INFO  2026-07-27 01:15:02,255 [shard 0:main] init - initializing system schema
+INFO  2026-07-27 01:15:02,317 [shard 0:main] schema_tables - Schema version changed to a3295fec-8951-11f1-a664-56370b2cb630
+INFO  2026-07-27 01:15:02,318 [shard 0:main] init - loading tablet metadata
+INFO  2026-07-27 01:15:02,318 [shard 0:main] init - loading non-system sstables
+/opt/scylladb/scripts/libexec/scylla-housekeeping:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  from pkg_resources import parse_version
+Traceback (most recent call last):
+  File "/opt/scylladb/scripts/libexec/scylla-housekeeping", line 213, in <module>
+    args.func(args)
+    ~~~~~~~~~^^^^^^
+  File "/opt/scylladb/scripts/libexec/scylla-housekeeping", line 139, in check_version
+    current_version = sanitize_version(get_api('/storage_service/scylla_release_version'))
+                                       ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/scylladb/scripts/libexec/scylla-housekeeping", line 85, in get_api
+    return get_json_from_url("http://" + api_address + path)
+  File "/opt/scylladb/scripts/libexec/scylla-housekeeping", line 80, in get_json_from_url
+    raise RuntimeError(f'Failed to get "{path}" due to the following error: {retval}')
+RuntimeError: Failed to get "http://localhost:10000/storage_service/scylla_release_version" due to the following error: HTTP Error 404: Not Found
+INFO  2026-07-27 01:15:04,098 [shard 0:main] database - Populating Keyspace system_replicated_keys
+INFO  2026-07-27 01:15:04,098 [shard 0:main] database - Keyspace system_replicated_keys: Reading CF encrypted_keys id=f705e6dd-8cc5-378b-a7e9-aec38e033747 version=208a0319-eb64-334c-a904-27a7b059f2b7 storage=/var/lib/scylla/data/system_replicated_keys/encrypted_keys-f705e6dd8cc5378ba7e9aec38e033747
+INFO  2026-07-27 01:15:04,157 [shard 0:main] database - Populating Keyspace system_distributed
+INFO  2026-07-27 01:15:04,157 [shard 0:main] database - Keyspace system_distributed: Reading CF view_build_status id=5582b59f-8e4e-35e1-b913-3acada51eb04 version=edfbd00c-bc3a-309c-a385-bf23fe1fe4a4 storage=/var/lib/scylla/data/system_distributed/view_build_status-5582b59f8e4e35e1b9133acada51eb04
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_distributed: Reading CF service_levels id=b8c556bd-212d-37ad-9484-690c73a5994b version=7b80a349-c40c-38a5-8968-92e586253baf storage=/var/lib/scylla/data/system_distributed/service_levels-b8c556bd212d37ad9484690c73a5994b
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_distributed: Reading CF cdc_streams_descriptions_v2 id=0bf73fd7-65b2-36b0-85e5-658131d5df36 version=98f7f30f-53f9-3511-a212-c871259eb3ac storage=/var/lib/scylla/data/system_distributed/cdc_streams_descriptions_v2-0bf73fd765b236b085e5658131d5df36
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_distributed: Reading CF cdc_generation_timestamps id=fdf455c4-cfec-3e00-9719-d7a45436c89d version=a7db7c9c-38e8-35a2-8c48-5d2b51e9dc38 storage=/var/lib/scylla/data/system_distributed/cdc_generation_timestamps-fdf455c4cfec3e009719d7a45436c89d
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Populating Keyspace system_distributed_everywhere
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_distributed_everywhere: Reading CF cdc_generation_descriptions_v2 id=234d2227-dd63-3d37-ac5f-c013e2ea9e6e version=fd511629-0ff7-3407-8aba-aec959612c07 storage=/var/lib/scylla/data/system_distributed_everywhere/cdc_generation_descriptions_v2-234d2227dd633d37ac5fc013e2ea9e6e
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Populating Keyspace audit
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Populating Keyspace system_auth
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Populating Keyspace system_traces
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace audit: Reading CF audit_log id=dfc81bcc-633a-3940-a2b4-4510234e9d1b version=a0c44692-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/audit/audit_log-dfc81bcc633a3940a2b44510234e9d1b
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_traces: Reading CF sessions_time_idx id=0ebf001c-c1d1-3693-9a63-c3d96ac53318 version=a1163722-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/system_traces/sessions_time_idx-0ebf001cc1d136939a63c3d96ac53318
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_traces: Reading CF sessions id=c5e99f16-8677-3914-b17e-960613512345 version=a1161012-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/system_traces/sessions-c5e99f1686773914b17e960613512345
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_traces: Reading CF node_slow_log_time_idx id=f9706768-aa1e-3d87-9e5c-51a3927c2870 version=a116372b-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/system_traces/node_slow_log_time_idx-f9706768aa1e3d879e5c51a3927c2870
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_traces: Reading CF node_slow_log id=bfcc4e62-5b63-3aa1-a1c3-6f5e47f3325c version=a1163728-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/system_traces/node_slow_log-bfcc4e625b633aa1a1c36f5e47f3325c
+INFO  2026-07-27 01:15:04,158 [shard 0:main] database - Keyspace system_traces: Reading CF events id=8826e8e9-e16a-3728-8753-3bc1fc713c25 version=a1163725-8951-11f1-af9b-07eca4311ba0 storage=/var/lib/scylla/data/system_traces/events-8826e8e9e16a372887533bc1fc713c25
+INFO  2026-07-27 01:15:04,360 [shard 0:main] migration_manager - Reloading schema
+INFO  2026-07-27 01:15:04,360 [shard 0:main] init - starting commit log
+INFO  2026-07-27 01:15:04,364 [shard 0:main] init - starting column family API
+INFO  2026-07-27 01:15:04,368 [shard 0:main] init - initializing paxos store
+INFO  2026-07-27 01:15:04,368 [shard 0:main] init - initializing storage proxy RPC verbs
+INFO  2026-07-27 01:15:04,369 [shard 0:main] init - starting hinted handoff manager
+INFO  2026-07-27 01:15:04,374 [shard 0:main] schema_tables - Reloading system_distributed.cdc_streams_descriptions_v2 id=0bf73fd7-65b2-36b0-85e5-658131d5df36 version=98f7f30f-53f9-3511-a212-c871259eb3ac
+INFO  2026-07-27 01:15:04,374 [shard 0:main] schema_tables - Reloading system_traces.sessions_time_idx id=0ebf001c-c1d1-3693-9a63-c3d96ac53318 version=a1163722-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,374 [shard 0:main] schema_tables - Reloading system_distributed_everywhere.cdc_generation_descriptions_v2 id=234d2227-dd63-3d37-ac5f-c013e2ea9e6e version=fd511629-0ff7-3407-8aba-aec959612c07
+INFO  2026-07-27 01:15:04,375 [shard 0:main] schema_tables - Reloading system_distributed.view_build_status id=5582b59f-8e4e-35e1-b913-3acada51eb04 version=edfbd00c-bc3a-309c-a385-bf23fe1fe4a4
+INFO  2026-07-27 01:15:04,375 [shard 0:main] schema_tables - Reloading system_traces.events id=8826e8e9-e16a-3728-8753-3bc1fc713c25 version=a1163725-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,375 [shard 0:main] schema_tables - Reloading system_distributed.service_levels id=b8c556bd-212d-37ad-9484-690c73a5994b version=7b80a349-c40c-38a5-8968-92e586253baf
+INFO  2026-07-27 01:15:04,375 [shard 0:main] schema_tables - Reloading system_traces.node_slow_log id=bfcc4e62-5b63-3aa1-a1c3-6f5e47f3325c version=a1163728-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,375 [shard 0:main] schema_tables - Reloading system_traces.sessions id=c5e99f16-8677-3914-b17e-960613512345 version=a1161012-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,376 [shard 0:main] schema_tables - Reloading audit.audit_log id=dfc81bcc-633a-3940-a2b4-4510234e9d1b version=a0c44692-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,376 [shard 0:main] schema_tables - Reloading system_replicated_keys.encrypted_keys id=f705e6dd-8cc5-378b-a7e9-aec38e033747 version=208a0319-eb64-334c-a904-27a7b059f2b7
+INFO  2026-07-27 01:15:04,376 [shard 0:main] schema_tables - Reloading system_traces.node_slow_log_time_idx id=f9706768-aa1e-3d87-9e5c-51a3927c2870 version=a116372b-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,376 [shard 0:main] schema_tables - Reloading system_distributed.cdc_generation_timestamps id=fdf455c4-cfec-3e00-9719-d7a45436c89d version=a7db7c9c-38e8-35a2-8c48-5d2b51e9dc38
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_distributed.cdc_streams_descriptions_v2 changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_traces.sessions_time_idx changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_distributed_everywhere.cdc_generation_descriptions_v2 changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_distributed.view_build_status changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_traces.events changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_distributed.service_levels changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_traces.node_slow_log changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_traces.sessions changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for audit.audit_log changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_replicated_keys.encrypted_keys changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_traces.node_slow_log_time_idx changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,396 [shard 0:main] query_processor - Column definitions for system_distributed.cdc_generation_timestamps changed, invalidating related prepared statements
+INFO  2026-07-27 01:15:04,400 [shard 0:main] schema_tables - Schema version changed to a3295fec-8951-11f1-a664-56370b2cb630
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting CDC Generation Management service
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting CDC log service
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting storage service
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting REST API
+INFO  2026-07-27 01:15:04,448 [shard 0:main] task_manager - Registered module snapshot
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting sstables loader
+INFO  2026-07-27 01:15:04,448 [shard 0:main] task_manager - Registered module sstables_loader
+INFO  2026-07-27 01:15:04,448 [shard 0:main] init - starting group 0 service
+INFO  2026-07-27 01:15:04,448 [shard 0:main] raft_group0 - setup_group0: group 0 ID present. Starting existing Raft server.
+INFO  2026-07-27 01:15:04,448 [shard 0:main] raft_group0 - Server b4a98bca-244b-4cc3-8233-8a7dbff4c511 is starting group 0 with id 9ef7eb00-8951-11f1-af9b-07eca4311ba0
+INFO  2026-07-27 01:15:04,542 [shard 0: gms] auth-cache - Loading all roles
+WARN  2026-07-27 01:15:04,559 [shard 0: gms] gossip - Fail to apply application_state: std::runtime_error (endpoint_state_map does not contain endpoint = 172.25.0.2, application_states = {CDC_STREAMS_TIMESTAMP: Value(v2;1785111910263;a06c486e-8951-11f1-b84d-68b451370200,2), STATUS: Value(NORMAL,891830712910138719,3), TOKENS: Value(891830712910138719;840469477152707341;8209384995539550080;8039072311660359995;7172364697593958322;7138130443675384346;7046564451764574130;6946328498009375926;7008480122526118769;6932769178000809979;6847543855125405494;6752764060066481416;8167222129145504123;6460885140103810382;6456658311599421971;6296987473873209341;6225869562514537240;5847589709208424607;5768088529463340471;5476533321571471010;5402023057434504462;5367866001862214930;5331617078983543174;5269191012498891937;5268905418561131114;5145827632071198484;6523398395106870225;4725305096221703243;604113730430650989;4492398883772503368;44907223795751209;6035620970498798599;4399087510868416566;8357253258822870625;523135633018937509;4332615293682489620;412120788221836396;4071555597255314435;4062716579880248575;5676644597183294675;4028568661922386558;3851032370638990733;3634821941265189938;3630508650097579647;4577673758073360375;3611247617600908130;346953611356299292;343106727222091065;3382284948281339625;3319278807564275422;3254607172870803039;787647247444488808;3251868562180444464;31120238674144114;305439240706599334;6659049826814880467;3021094660913691775;2986703525644507984;6118700102896344966;2734723252825627456;4601231994811731954;2635928460854516146;7750071729505038787;5747051612876957956;2555178084390855592;3067897369541748462;2548173253595299227;2489317103816415095;2476762803282401301;2458473912028363313;2669332619947937084;2058656918412815904;5008255903310497547;1996143633344749719;191515799820765625;1728686341940160679;1726023265283235473;1484617765735667045;8981760546916507257;1377472929357668869;1253685426180476116;7544607647951259333;123174350995436677;-9086107971893974368;627371890488223519;-8942135031765096724;-8109698333744985837;-3935450583386321742;5245627248094337530;2191375193069429395;-2824679809111568901;8848617610487797569;-3751254616170211136;-3743946195383097808;-3436654114908188670;-3309888189665050832;-8411619277214055572;-4159888926668746840;6332525960651986025;-1857589740956532205;7493221615006097164;-2896854870518306536;373980555251588539;-3281117164014242258;-5383600649634533208;-3194482462361472085;-3138205271646735537;-3084741778975730321;-2859807874193736425;-2710489747454493430;5144069490630230172;-2849255492909630950;8966946283478135858;4602874783265867371;-1258429067848647316;-1382009468229619590;-3516123958326662630;-1928419769141977391;-1801035357325823776;-2502748885920308928;-5002494241199493938;-3931686813962145974;8820525527842740822;7840458303429491914;-506818366225665278;-156151816781063983;-1527142679230832181;-3545996630234922898;-2421114362045076520;-4665943016810777526;-5739183398851474509;-3065858167536206713;6358262241742451877;-1497880417146367151;7821225297961232500;-5064045920662149012;-7592037091701302873;-1035347238324953211;4132428164059681895;-4366871417745408051;2075399912138156929;-7033583215255215515;-1349655408940276987;-1616787856541342529;-2449945837686136591;-2939871359752468599;-1318998038218956454;-6002967107260928775;971466465771110100;7704087353842154057;-105666720405998416;-2057287721516140596;-5646038128664925898;3809149959214138376;-8398197777342061806;4729600621118065865;-1686709382512578388;-2377496433096511400;1816980193853017676;1170332236217619248;-3576772800681320197;-5150588799490549811;6509241451492189396;-1917212144667119397;1642814048045748631;-7750587071631011271;-3396359911065941476;-3134324508545380782;-206377868766469166;-7978644279597028703;-2817239750841687579;-2057208803021993299;-2790837555630718251;-2495313253648861239;-217072109635498915;-2215920178348246912;-6679126634603398715;6714407870155662167;-6682499762957637906;-7130791534824070880;-2236598460211461168;-2264241025914145084;-4043438000157123504;-2677972798108273518;-5577967318584203081;-7085737711910030075;-4195359661955715021;-6496257784012317985;2595753007344835299;-4204235373671038098;7079110224861874208;-6633611193581949230;-7996290683812988186;2613587180410420096;-4217151601046414600;-6576264781719117641;2627191844891051138;-4607171399092208026;3847136970174548330;3354704277836712075;-4660264540277607028;-4738773849693395924;-990428680021945517;-6900155241091362331;6688734867313544413;-4757859263897988395;-5114737681743325840;-7495714074899246270;-3945028697402345218;-239262474485243584;-5254967401879879279;3418887332554588363;-5341235544532809623;-8472783616314987136;-8486373018509915513;-5452661225494090519;5685230523039955867;-5492583460782856777;-5534209175036060685;6340993340188640711;-5647825897022160604;-5962496099706369285;6478127790612084076;1942601840659710864;-6076203289444069541;7248234293010250199;-3351327812266483219;-6150313695439172042;9013814948287622340;-6288252092722252717;-6344995550882845078;4127428158082163564;-4612188451928339078;-6363115655043761819;-6501969278364970164;-8240158674885153002;-6514223519398154921;1029063188139259722;-4879142611894279301;-778959274513515806;-5014599035528653972;-668273583553380974;-4041522876433024086;-7231733421370731021;-2942826846513575644;-673534579555970107;-6817427624452982528;1063448834397268839;-7537189627330757800;-7105273656677192387;-8078167563851860715;8226606072258272936;-8163989228275592835;-4604368425665772588;-8229288332536475894;-8583173678067744276,1)})
+INFO  2026-07-27 01:15:04,566 [shard 0: gms] storage_proxy - update_fence_version: new fence_version 3 is set, prev fence_version 0, pending stale writes 0
+INFO  2026-07-27 01:15:04,567 [shard 0: gms] cdc - Started using generation (2026/07/27 00:25:10, a06c486e-8951-11f1-b84d-68b451370200).
+INFO  2026-07-27 01:15:04,572 [shard 0: gms] auth-cache - Loading all roles
+INFO  2026-07-27 01:15:04,576 [shard 0:main] raft_group0 - gaining leadership
+INFO  2026-07-27 01:15:04,577 [shard 0:main] raft_group0 - Disabling migration_manager schema pulls because Raft is fully functioning in this cluster.
+INFO  2026-07-27 01:15:04,577 [shard 0:strm] messaging_service - Starting Messaging Service on address 172.25.0.2 port 7000
+INFO  2026-07-27 01:15:04,577 [shard 0:main] init - join cluster
+INFO  2026-07-27 01:15:04,577 [shard 0:strm] storage_service - entering STARTING mode
+INFO  2026-07-27 01:15:04,578 [shard 0:strm] storage_service - The node is already in group 0 and will restart in raft mode
+INFO  2026-07-27 01:15:04,578 [shard 0:strm] storage_service - Loading persisted peers into the gossiper
+INFO  2026-07-27 01:15:04,578 [shard 0:strm] storage_service - initial_contact_nodes={172.25.0.2}, loaded_endpoints=[], loaded_peer_features=0
+INFO  2026-07-27 01:15:04,578 [shard 0:strm] storage_service - Performing gossip shadow round, initial_contact_nodes={172.25.0.2}
+INFO  2026-07-27 01:15:04,578 [shard 0: gms] gossip - Gossip shadow round started with nodes={}
+WARN  2026-07-27 01:15:04,578 [shard 0: gms] gossip - All nodes={} are down for get_endpoint_states verb. Skip ShadowRound.
+INFO  2026-07-27 01:15:04,578 [shard 0: gms] gossip - Gossip shadow round finished with nodes_talked={}
+INFO  2026-07-27 01:15:04,578 [shard 0:strm] storage_service - Save advertised features list in the 'system.local' table
+INFO  2026-07-27 01:15:04,585 [shard 0:strm] storage_service - Restarting a node in NORMAL status
+INFO  2026-07-27 01:15:04,616 [shard 0:strm] schema_tables - Schema version changed to a3295fec-8951-11f1-a664-56370b2cb630
+INFO  2026-07-27 01:15:04,616 [shard 0:strm] storage_service - Starting up server gossip
+INFO  2026-07-27 01:15:04,616 [shard 0: gms] gossip - Gossip started with local state: HeartBeatState = { generation = 1785114902, version = 0 }, AppStateMap = { STATUS : Value(NORMAL,891830712910138719,16) }  { TOKENS : Value(891830712910138719;840469477152707341;8209384995539550080;8039072311660359995;7172364697593958322;7138130443675384346;7046564451764574130;6946328498009375926;7008480122526118769;6932769178000809979;6847543855125405494;6752764060066481416;8167222129145504123;6460885140103810382;6456658311599421971;6296987473873209341;6225869562514537240;5847589709208424607;5768088529463340471;5476533321571471010;5402023057434504462;5367866001862214930;5331617078983543174;5269191012498891937;5268905418561131114;5145827632071198484;6523398395106870225;4725305096221703243;604113730430650989;4492398883772503368;44907223795751209;6035620970498798599;4399087510868416566;8357253258822870625;523135633018937509;4332615293682489620;412120788221836396;4071555597255314435;4062716579880248575;5676644597183294675;4028568661922386558;3851032370638990733;3634821941265189938;3630508650097579647;4577673758073360375;3611247617600908130;346953611356299292;343106727222091065;3382284948281339625;3319278807564275422;3254607172870803039;787647247444488808;3251868562180444464;31120238674144114;305439240706599334;6659049826814880467;3021094660913691775;2986703525644507984;6118700102896344966;2734723252825627456;4601231994811731954;2635928460854516146;7750071729505038787;5747051612876957956;2555178084390855592;3067897369541748462;2548173253595299227;2489317103816415095;2476762803282401301;2458473912028363313;2669332619947937084;2058656918412815904;5008255903310497547;1996143633344749719;191515799820765625;1728686341940160679;1726023265283235473;1484617765735667045;8981760546916507257;1377472929357668869;1253685426180476116;7544607647951259333;123174350995436677;-9086107971893974368;627371890488223519;-8942135031765096724;-8109698333744985837;-3935450583386321742;5245627248094337530;2191375193069429395;-2824679809111568901;8848617610487797569;-3751254616170211136;-3743946195383097808;-3436654114908188670;-3309888189665050832;-8411619277214055572;-4159888926668746840;6332525960651986025;-1857589740956532205;7493221615006097164;-2896854870518306536;373980555251588539;-3281117164014242258;-5383600649634533208;-3194482462361472085;-3138205271646735537;-3084741778975730321;-2859807874193736425;-2710489747454493430;5144069490630230172;-2849255492909630950;8966946283478135858;4602874783265867371;-1258429067848647316;-1382009468229619590;-3516123958326662630;-1928419769141977391;-1801035357325823776;-2502748885920308928;-5002494241199493938;-3931686813962145974;8820525527842740822;7840458303429491914;-506818366225665278;-156151816781063983;-1527142679230832181;-3545996630234922898;-2421114362045076520;-4665943016810777526;-5739183398851474509;-3065858167536206713;6358262241742451877;-1497880417146367151;7821225297961232500;-5064045920662149012;-7592037091701302873;-1035347238324953211;4132428164059681895;-4366871417745408051;2075399912138156929;-7033583215255215515;-1349655408940276987;-1616787856541342529;-2449945837686136591;-2939871359752468599;-1318998038218956454;-6002967107260928775;971466465771110100;7704087353842154057;-105666720405998416;-2057287721516140596;-5646038128664925898;3809149959214138376;-8398197777342061806;4729600621118065865;-1686709382512578388;-2377496433096511400;1816980193853017676;1170332236217619248;-3576772800681320197;-5150588799490549811;6509241451492189396;-1917212144667119397;1642814048045748631;-7750587071631011271;-3396359911065941476;-3134324508545380782;-206377868766469166;-7978644279597028703;-2817239750841687579;-2057208803021993299;-2790837555630718251;-2495313253648861239;-217072109635498915;-2215920178348246912;-6679126634603398715;6714407870155662167;-6682499762957637906;-7130791534824070880;-2236598460211461168;-2264241025914145084;-4043438000157123504;-2677972798108273518;-5577967318584203081;-7085737711910030075;-4195359661955715021;-6496257784012317985;2595753007344835299;-4204235373671038098;7079110224861874208;-6633611193581949230;-7996290683812988186;2613587180410420096;-4217151601046414600;-6576264781719117641;2627191844891051138;-4607171399092208026;3847136970174548330;3354704277836712075;-4660264540277607028;-4738773849693395924;-990428680021945517;-6900155241091362331;6688734867313544413;-4757859263897988395;-5114737681743325840;-7495714074899246270;-3945028697402345218;-239262474485243584;-5254967401879879279;3418887332554588363;-5341235544532809623;-8472783616314987136;-8486373018509915513;-5452661225494090519;5685230523039955867;-5492583460782856777;-5534209175036060685;6340993340188640711;-5647825897022160604;-5962496099706369285;6478127790612084076;1942601840659710864;-6076203289444069541;7248234293010250199;-3351327812266483219;-6150313695439172042;9013814948287622340;-6288252092722252717;-6344995550882845078;4127428158082163564;-4612188451928339078;-6363115655043761819;-6501969278364970164;-8240158674885153002;-6514223519398154921;1029063188139259722;-4879142611894279301;-778959274513515806;-5014599035528653972;-668273583553380974;-4041522876433024086;-7231733421370731021;-2942826846513575644;-673534579555970107;-6817427624452982528;1063448834397268839;-7537189627330757800;-7105273656677192387;-8078167563851860715;8226606072258272936;-8163989228275592835;-4604368425665772588;-8229288332536475894;-8583173678067744276,14) }  { RPC_READY : Value(0,11) }  { SCHEMA_TABLES_VERSION : Value(3,10) }  { SCHEMA : Value(a3295fec-8951-11f1-a664-56370b2cb630,13) }  { DC : Value(datacenter1,20) }  { RACK : Value(rack1,21) }  { IGNOR_MSB_BITS : Value(12,19) }  { SHARD_COUNT : Value(1,18) }  { SNITCH_NAME : Value(org.apache.cassandra.locator.SimpleSnitch,17) }  { NET_VERSION : Value(0,4) }  { HOST_ID : Value(b4a98bca-244b-4cc3-8233-8a7dbff4c511,5) }  { RPC_ADDRESS : Value(172.25.0.2,6) }  { CDC_STREAMS_TIMESTAMP : Value(v2;1785111910263;a06c486e-8951-11f1-b84d-68b451370200,15) }  { RELEASE_VERSION : Value(3.0.8,7) }  { VIEW_BACKLOG : Value(,12) }  { SUPPORTED_FEATURES : Value(ADDRESS_NODES_BY_HOST_IDS,AGGREGATE_STORAGE_OPTIONS,ALTERNATOR_TTL,BATCHLOG_V2,CDC,CDC_GENERATIONS_V2,CDC_WITH_TABLETS,CLIENT_ROUTES,COLLECTION_INDEXING,COLOCATED_TABLETS,COMPACTION_HISTORY_UPGRADE,COMPRESSION_DICTS,COMPUTED_COLUMNS,CORRECT_COUNTER_ORDER,CORRECT_IDX_TOKEN_IN_SECONDARY_INDEX,CORRECT_NON_COMPOUND_RANGE_TOMBSTONES,CORRECT_STATIC_COMPACT_IN_MC,COUNTERS,COUNTERS_WITH_TABLETS,DIGEST_FOR_NULL_VALUES,DIGEST_INSENSITIVE_TO_EXPIRY,DIGEST_MULTIPARTITION_READ,DRIVER_SERVICE_LEVEL,EMPTY_REPLICA_MUTATION_PAGES,EMPTY_REPLICA_PAGES,ENFORCED_RAFT_RPC_SCHEDULING_GROUP,FILE_STREAM,FRAGMENTED_COMMITLOG_ENTRIES,GROUP0_LIMITED_VOTERS,GROUP0_SCHEMA_VERSIONING,HINTED_HANDOFF_SEPARATE_CONNECTION,HOST_ID_BASED_HINTED_HANDOFF,INDEXES,IN_MEMORY_TABLES,LARGE_COLLECTION_DETECTION,LARGE_PARTITIONS,LA_SSTABLE_FORMAT,LOAD_AND_STREAM_ABORT_RPC_MESSAGE,LWT,LWT_WITH_TABLETS,MAINTENANCE_TENANT,MATERIALIZED_VIEWS,MC_SSTABLE_FORMAT,MD_SSTABLE_FORMAT,ME_SSTABLE_FORMAT,MS_SSTABLE_FORMAT,NATIVE_REVERSE_QUERIES,NONFROZEN_UDTS,PARALLELIZED_AGGREGATION,PARALLEL_TABLET_DRAINING,PER_TABLE_CACHING,PER_TABLE_PARTITIONERS,RACK_LIST_RF,RANGE_SCAN_DATA_VARIANT,RANGE_TOMBSTONES,RANGE_TOMBSTONE_AND_DEAD_ROWS_DETECTION,REMOVENODE_WITH_LEFT_TOKEN_RING,REPAIR_BASED_TABLET_REBUILD,REPAIR_MSG_SPLIT,ROLES,ROW_LEVEL_REPAIR,SCHEMA_COMMITLOG,SCHEMA_TABLES_V3,SECONDARY_INDEXES_ON_STATIC_COLUMNS,SEPARATE_PAGE_SIZE_AND_SAFETY_LIMIT,SIZE_BASED_LOAD_BALANCING,SSTABLE_COMPRESSION_DICTS,STREAM_WITH_RPC_STREAM,SUPPORTS_CONSISTENT_TOPOLOGY_CHANGES,SUPPORTS_RAFT_CLUSTER_MANAGEMENT,TABLETS,TABLET_INCREMENTAL_REPAIR,TABLET_LOAD_STATS_V2,TABLET_MERGE,TABLET_MIGRATION_VIRTUAL_TASK,TABLET_OPTIONS,TABLET_RACK_AWARE_VIEW_PAIRING,TABLET_REPAIR_SCHEDULER,TABLET_REPAIR_TASKS_TABLE,TABLET_RESIZE_VIRTUAL_TASK,TABLE_DIGEST_INSENSITIVE_TO_EXPIRY,TOMBSTONE_GC_OPTIONS,TOPOLOGY_GLOBAL_REQUEST_QUEUE,TOPOLOGY_NOOP_REQUEST,TOPOLOGY_REQUESTS_TYPE_COLUMN,TRUNCATE_AS_TOPOLOGY_OPERATION,TRUNCATION_TABLE,TYPED_ERRORS_IN_READ_RPC,UDA,UDA_NATIVE_PARALLELIZED_AGGREGATION,UNBOUNDED_RANGE_TOMBSTONES,UUID_SSTABLE_IDENTIFIERS,VIEWS_WITH_TABLETS,VIEW_BUILDING_COORDINATOR,VIEW_BUILD_STATUS_ON_GROUP0,VIEW_VIRTUAL_COLUMNS,WORKLOAD_PRIORITIZATION,WRITE_FAILURE_REPLY,XXHASH,ZERO_TOKEN_NODES,8) }  { CACHE_HITRATES : Value(,9) } 
+INFO  2026-07-27 01:15:04,616 [shard 0: gms] gossip - failure_detector_loop: Started main loop
+INFO  2026-07-27 01:15:04,668 [shard 0:strm] storage_service - entering JOINING mode
+INFO  2026-07-27 01:15:04,668 [shard 0:strm] raft_topology - topology changes are using raft
+INFO  2026-07-27 01:15:04,668 [shard 0:strm] raft_topology - start topology coordinator fiber
+INFO  2026-07-27 01:15:04,668 [shard 0:strm] storage_service - starting system distributed keyspace shards
+INFO  2026-07-27 01:15:04,668 [shard 0:strm] system_distributed_keyspace - system_distributed(_everywhere) keyspaces and tables are up-to-date. Not creating
+INFO  2026-07-27 01:15:04,669 [shard 0: gms] raft_topology - updating topology state: Starting new topology coordinator b4a98bca-244b-4cc3-8233-8a7dbff4c511
+INFO  2026-07-27 01:15:04,675 [shard 0:strm] storage_service - entering NORMAL mode
+INFO  2026-07-27 01:15:04,675 [shard 0:strm] raft_group0 - finish_setup_after_join: group 0 ID present, loading server info.
+INFO  2026-07-27 01:15:04,675 [shard 0:strm] raft_group0 - finish_setup_after_join: SUPPORTS_RAFT feature enabled. Starting internal upgrade-to-raft procedure.
+INFO  2026-07-27 01:15:04,675 [shard 0:strm] raft_group0_upgrade - Already upgraded.
+INFO  2026-07-27 01:15:04,675 [shard 0:strm] storage_service - Starting the tablet split monitor...
+INFO  2026-07-27 01:15:04,675 [shard 0:main] init - Verifying that all of the keyspaces are RF-rack-valid
+INFO  2026-07-27 01:15:04,675 [shard 0:main] database - All keyspaces are RF-rack-valid
+INFO  2026-07-27 01:15:04,675 [shard 0:main] init - Verifying that all of the tablet keyspaces use rack list replication factors
+INFO  2026-07-27 01:15:04,675 [shard 0:main] database - All tablet keyspaces use rack lists exclusively
+INFO  2026-07-27 01:15:04,675 [shard 0:main] init - starting audit service
+INFO  2026-07-27 01:15:04,675 [shard 0:main] audit - Audit is enabled. Auditing to: "table", with the following categories: "DCL,DDL,AUTH,ADMIN", keyspaces: "", and tables: ""
+INFO  2026-07-27 01:15:04,675 [shard 0:main] init - starting tracing
+INFO  2026-07-27 01:15:04,675 [shard 0:main] init - SSTable data integrity checker is disabled.
+INFO  2026-07-27 01:15:04,744 [shard 0:main] init - starting auth service
+INFO  2026-07-27 01:15:04,745 [shard 0:main] init - starting auth service
+INFO  2026-07-27 01:15:04,750 [shard 0:main] auth-cache - Loading all roles
+INFO  2026-07-27 01:15:04,760 [shard 0:main] service_level_controller - service level "driver" was added.
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting batchlog manager
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting load meter
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting cf cache hit rate calculator
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting view update backlog broker
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - allow replaying hints
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - Drain hints for nodes that have already left the cluster
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - Launching generate_mv_updates for non system tables
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting view builders
+INFO  2026-07-27 01:15:04,760 [shard 0:main] init - starting view building worker's background fibers
+INFO  2026-07-27 01:15:04,762 [shard 0:sl:d] cql_server_controller - Starting listening for CQL clients on 172.25.0.2:9042 (unencrypted, non-shard-aware)
+INFO  2026-07-27 01:15:04,762 [shard 0:sl:d] cql_server_controller - Starting listening for CQL clients on 172.25.0.2:19042 (unencrypted, shard-aware)
+INFO  2026-07-27 01:15:04,763 [shard 0:main] init - serving
+INFO  2026-07-27 01:15:04,763 [shard 0:main] init - Scylla version 2026.1.3-0.20260510.c0bf728edb2b initialization completed.
+INFO  2026-07-27 01:15:04,813 [shard 0: gms] view_building_coordinator - No base table to process.
+INFO  2026-07-27 01:15:06,448 [shard 0:main] group0_tombstone_gc_handler - Setting reconcile time to   1785114903 (min id=9943f5e4-8958-11f1-ae4e-ed3a25fbbf9a)
+INFO  2026-07-27 01:15:37,241 [shard 0:main] batchlog_manager - Migrating batchlog entries from v1 -> v2
+INFO  2026-07-27 01:15:37,241 [shard 0:main] batchlog_manager - Done migrating batchlog entries from v1 -> v2
+2026-07-27 01:35:47,674 WARN received SIGTERM indicating exit request
+2026-07-27 01:35:47,674 WARN received SIGTERM indicating exit request
+2026-07-27 01:35:47,675 INFO waiting for scylla, scylla-housekeeping, scylla-node-exporter to die
+2026-07-27 01:35:47,675 INFO waiting for scylla, scylla-housekeeping, scylla-node-exporter to die
+2026-07-27 01:35:47,678 WARN stopped: scylla-node-exporter (terminated by SIGTERM)
+2026-07-27 01:35:47,678 WARN stopped: scylla-node-exporter (terminated by SIGTERM)
+2026-07-27 01:35:48,681 WARN stopped: scylla-housekeeping (terminated by SIGTERM)
+2026-07-27 01:35:48,681 WARN stopped: scylla-housekeeping (terminated by SIGTERM)
+INFO  2026-07-27 01:35:48,682 [shard 0:main] compaction_manager - Asked to stop
+INFO  2026-07-27 01:35:48,682 [shard 0:main] task_manager - Stopping module compaction
+INFO  2026-07-27 01:35:48,682 [shard 0:main] task_manager - Unregistered module compaction
+INFO  2026-07-27 01:35:48,682 [shard 0:main] view_update_generator - Terminating background fiber
+WARN  2026-07-27 01:35:48,682 [shard 0: gms] gossip - failure_detector_loop: Got error in the loop, live_nodes={}: seastar::sleep_aborted (Sleep is aborted)
+INFO  2026-07-27 01:35:48,682 [shard 0: gms] gossip - failure_detector_loop: Finished main loop
+INFO  2026-07-27 01:35:48,682 [shard 0:strm] view_update_generator - leaving 0 unstaged sstables unprocessed
+INFO  2026-07-27 01:35:48,682 [shard 0:main] init - Signal received; shutting down
+INFO  2026-07-27 01:35:48,682 [shard 0:main] init - Shutting down thrift controller API
+INFO  2026-07-27 01:35:48,683 [shard 0:main] init - Shutting down thrift controller API was successful
+INFO  2026-07-27 01:35:48,683 [shard 0:main] init - Shutting down transport controller API
+INFO  2026-07-27 01:35:48,683 [shard 0:main] init - Shutting down transport controller API was successful
+INFO  2026-07-27 01:35:48,683 [shard 0:main] init - Shutting down local storage
+INFO  2026-07-27 01:35:48,683 [shard 0:main] storage_service - Stop transport: starts
+INFO  2026-07-27 01:35:48,683 [shard 0:main] migration_manager - stopping migration service
+INFO  2026-07-27 01:35:48,683 [shard 0:main] storage_service - Shutting down native transport server
+WARN  2026-07-27 01:35:48,683 [shard 0: gms] gossip - Fail to apply application_state: seastar::abort_requested_exception (abort requested)
+INFO  2026-07-27 01:35:48,684 [shard 0:main] cql_server_controller - CQL server stopped
+INFO  2026-07-27 01:35:48,684 [shard 0:main] storage_service - Shutting down native transport server was successful
+INFO  2026-07-27 01:35:48,684 [shard 0:main] storage_service - Stop transport: shutdown rpc and cql server done
+INFO  2026-07-27 01:35:48,684 [shard 0:main] gossip - My status = NORMAL
+INFO  2026-07-27 01:35:48,684 [shard 0:main] gossip - Announcing shutdown
+WARN  2026-07-27 01:35:48,684 [shard 0: gms] gossip - Fail to apply application_state: seastar::abort_requested_exception (abort requested)
+WARN  2026-07-27 01:35:49,384 [shard 0: gms] gossip - === Gossip round FAIL: seastar::abort_requested_exception (abort requested)
+INFO  2026-07-27 01:35:49,384 [shard 0: gms] gossip - Gossip loop is not scheduled because it is disabled
+INFO  2026-07-27 01:35:50,684 [shard 0:main] gossip - Disable and wait for gossip loop started
+INFO  2026-07-27 01:35:50,685 [shard 0:main] gossip - Gossip is now stopped
+INFO  2026-07-27 01:35:50,685 [shard 0:main] storage_service - Stop transport: stop_gossiping done
+INFO  2026-07-27 01:35:50,685 [shard 0:main] messaging_service - Shutting down nontls server
+INFO  2026-07-27 01:35:50,685 [shard 0:main] messaging_service - Shutting down tls server
+INFO  2026-07-27 01:35:50,685 [shard 0:main] messaging_service - Shutting down tls server - Done
+INFO  2026-07-27 01:35:50,685 [shard 0:main] messaging_service - Stopping client for address: b4a98bca-244b-4cc3-8233-8a7dbff4c511
+2026-07-27 01:35:50,685 INFO waiting for scylla to die
+2026-07-27 01:35:50,685 INFO waiting for scylla to die
+INFO  2026-07-27 01:35:50,685 [shard 0:main] messaging_service - Stopping client for address: b4a98bca-244b-4cc3-8233-8a7dbff4c511
+INFO  2026-07-27 01:35:50,686 [shard 0:main] messaging_service - Stopping client for address: b4a98bca-244b-4cc3-8233-8a7dbff4c511 - Done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] messaging_service - Stopping client for address: b4a98bca-244b-4cc3-8233-8a7dbff4c511 - Done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] messaging_service - Shutting down nontls server - Done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] messaging_service - Stopped clients
+INFO  2026-07-27 01:35:50,687 [shard 0:main] storage_service - Stop transport: shutdown messaging_service done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] storage_service - Stop transport: shutdown stream_manager done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] storage_service - Stop transport: done
+INFO  2026-07-27 01:35:50,687 [shard 0:main] view - Draining view builder
+WARN  2026-07-27 01:35:50,687 [shard 0:strm] view_building_worker - Got broken_condition_variable while creating staging sstable tasks
+INFO  2026-07-27 01:35:50,688 [shard 0:strm] raft_topology - vnodes_cleanup fiber aborted
+INFO  2026-07-27 01:35:50,688 [shard 0:strm] raft_topology - raft_state_monitor_fiber aborted with raft::request_aborted (Aborted while waiting for state change on server: b4a98bca-244b-4cc3-8233-8a7dbff4c511, latest applied entry: 24, current state: Leader)
+INFO  2026-07-27 01:35:50,688 [shard 0: gms] view_building_coordinator - No base table to process.
+INFO  2026-07-27 01:35:50,688 [shard 0:main] tracing - Asked to shut down
+INFO  2026-07-27 01:35:50,688 [shard 0:main] tracing - Tracing is down
+INFO  2026-07-27 01:35:50,688 [shard 0:main] batchlog_manager - Asked to drain
+INFO  2026-07-27 01:35:50,689 [shard 0:main] batchlog_manager - Drained
+INFO  2026-07-27 01:35:50,689 [shard 0:main] compaction_manager - Asked to drain
+INFO  2026-07-27 01:35:50,689 [shard 0:main] compaction_manager - Drained
+INFO  2026-07-27 01:35:50,689 [shard 0:main] database - Flushing non-system tables
+INFO  2026-07-27 01:35:50,689 [shard 0:main] database - Flushed non-system tables
+INFO  2026-07-27 01:35:50,689 [shard 0:main] database - Flushing system tables
+INFO  2026-07-27 01:35:51,312 [shard 0:main] database - Flushed system tables
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down local storage was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down view builder API
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down view builder API was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down draining view building worker
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down draining view building worker was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down draining view builders
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down draining view builders was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down hinted handoff API
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down hinted handoff API was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down view update backlog broker
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down view update backlog broker was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down cf cache hit rate calculator
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down cf cache hit rate calculator was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down load meter API
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down load meter API was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down load meter
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down load meter was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down batchlog manager
+INFO  2026-07-27 01:35:51,319 [shard 0:main] batchlog_manager - Asked to stop
+INFO  2026-07-27 01:35:51,319 [shard 0:main] batchlog_manager - Stopped
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down batchlog manager was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down service level controller subscription
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down service level controller subscription was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down authorization cache api
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down authorization cache api was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down auth service
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down auth service was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down tracing
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down tracing was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down sstable_dict_autotrainer
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down sstable_dict_autotrainer was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down dictionary training
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down dictionary training was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down client routes API
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down client routes API was successful
+INFO  2026-07-27 01:35:51,319 [shard 0:main] init - Shutting down storage service API
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service API was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down group 0 usage in local storage
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down group 0 usage in local storage was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service uninit address map
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service uninit address map was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down group 0 service
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down group 0 service was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down sstables loader API
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down sstables loader API was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down sstables loader
+INFO  2026-07-27 01:35:51,320 [shard 0:main] task_manager - Stopping module sstables_loader
+INFO  2026-07-27 01:35:51,320 [shard 0:main] task_manager - Unregistered module sstables_loader
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down sstables loader was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service notifications
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service notifications was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down commitlog API
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down commitlog API was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down tasks API
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down tasks API was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down snapshots API
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down snapshots API was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down snapshots
+INFO  2026-07-27 01:35:51,320 [shard 0:main] task_manager - Stopping module snapshot
+INFO  2026-07-27 01:35:51,320 [shard 0:main] task_manager - Unregistered module snapshot
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down snapshots was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down migration manager notifications
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down migration manager notifications was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service notifications
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage service notifications was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down cdc log service
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down cdc log service was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down CDC Generation Management service
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down CDC Generation Management service was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down unsubscribe storage proxy
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down unsubscribe storage proxy was successful
+INFO  2026-07-27 01:35:51,320 [shard 0:main] init - Shutting down storage proxy RPC verbs
+INFO  2026-07-27 01:35:51,320 [shard 0:main] hints_manager - Asked to stop a shard hint manager
+INFO  2026-07-27 01:35:51,321 [shard 0:main] hints_manager - Shard hint manager has stopped
+INFO  2026-07-27 01:35:51,321 [shard 0:main] hints_manager - Asked to stop a shard hint manager
+INFO  2026-07-27 01:35:51,321 [shard 0:main] hints_manager - Shard hint manager has stopped
+INFO  2026-07-27 01:35:51,321 [shard 0:main] init - Shutting down storage proxy RPC verbs was successful
+INFO  2026-07-27 01:35:51,321 [shard 0:main] init - Shutting down paxos store
+INFO  2026-07-27 01:35:51,321 [shard 0:main] init - Shutting down paxos store was successful
+INFO  2026-07-27 01:35:51,321 [shard 0:main] init - Shutting down column family API
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down column family API was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down compaction manager API
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down compaction manager API was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down Raft API
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down Raft API was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down query processor remote part
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down query processor remote part was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down storage_service
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Stopping module tablets
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Unregistered module tablets
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Stopping module node_ops
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Unregistered module node_ops
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Stopping module global_topology_requests
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Unregistered module global_topology_requests
+INFO  2026-07-27 01:35:51,322 [shard 0:main] storage_service - Stopped node_ops_abort_thread
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down storage_service was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down strongly consistent coordinator
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down strongly consistent coordinator was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down strongly consistent groups manager
+INFO  2026-07-27 01:35:51,322 [shard 0:main] sc_groups_manager - stop() enter
+INFO  2026-07-27 01:35:51,322 [shard 0:main] sc_groups_manager - stop() completed
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down strongly consistent groups manager was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down client_routes
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down client_routes was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down auth cache
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down auth cache was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down stream manager api
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down stream manager api was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down stream manager
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down stream manager was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down repair API
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down repair API was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down repair service
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Stopping module repair
+INFO  2026-07-27 01:35:51,322 [shard 0:main] task_manager - Unregistered module repair
+INFO  2026-07-27 01:35:51,322 [shard 0:main] repair - Stopped repair_service
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down repair service was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view building worker
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view building worker was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view builder
+INFO  2026-07-27 01:35:51,322 [shard 0:main] view - Stopping view builder
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view builder was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view update generator
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view update generator was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down system distributed keyspace
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down system distributed keyspace was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view_building_state_machine
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down view_building_state_machine was successful
+INFO  2026-07-27 01:35:51,322 [shard 0:main] init - Shutting down topology_state_machine
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down topology_state_machine was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down Raft
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down Raft was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down migration manager
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down migration manager was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down mapreduce service
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down mapreduce service was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down tablet allocator
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down tablet allocator was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down direct_failure_detector
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down direct_failure_detector was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down fd_pinger
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down fd_pinger was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossiper API
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossiper API was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down token metadata API
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down token metadata API was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossiper
+INFO  2026-07-27 01:35:51,323 [shard 0:main] gossip - gossip is already stopped
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossiper was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down messaging service API
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down messaging service API was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down messaging service
+INFO  2026-07-27 01:35:51,323 [shard 0:main] messaging_service - Stopping nontls server
+INFO  2026-07-27 01:35:51,323 [shard 0:main] messaging_service - Stopping nontls server - Done
+INFO  2026-07-27 01:35:51,323 [shard 0:main] messaging_service - Stopping tls server
+INFO  2026-07-27 01:35:51,323 [shard 0:main] messaging_service - Stopping tls server - Done
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down messaging service was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down compressor_tracker
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down compressor_tracker was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossip_address_map
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down gossip_address_map was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down system keyspace
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down system keyspace was successful
+INFO  2026-07-27 01:35:51,323 [shard 0:main] init - Shutting down config API
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down config API was successful
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down tracing instance
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down tracing instance was successful
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down lifecycle notifier
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down lifecycle notifier was successful
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down vector store client
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down vector store client was successful
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down storage proxy API
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down storage proxy API was successful
+INFO  2026-07-27 01:35:51,324 [shard 0:main] init - Shutting down database
+INFO  2026-07-27 01:35:51,324 [shard 0:main] compaction_manager - Asked to drain
+INFO  2026-07-27 01:35:51,324 [shard 0:main] compaction_manager - Drained
+INFO  2026-07-27 01:35:51,329 [shard 0:main] compaction_manager - Stopped
+INFO  2026-07-27 01:35:51,333 [shard 0:main] large_data - Waiting for 0 background handlers
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down commitlog
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down commitlog complete
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down schema commitlog
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down schema commitlog complete
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down system dirty memory manager
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down dirty memory manager
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Shutting down memtable controller
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Stopping querier cache
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Closing user sstables manager
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Closing system sstables manager
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Stopping concurrency semaphores
+INFO  2026-07-27 01:35:51,333 [shard 0:main] database - Joining memtable update action
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down database was successful
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down sstable_compressor_factory
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down sstable_compressor_factory was successful
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down lang manager
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down lang manager was successful
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down service level controller
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down service level controller was successful
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down sstables storage manager
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down sstables storage manager was successful
+INFO  2026-07-27 01:35:51,334 [shard 0:main] init - Shutting down compaction_manager
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down compaction_manager was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down disk space monitor
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down disk space monitor was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down task manager API
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down task manager API was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down task_manager
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down task_manager was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down service_memory_limiter
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down service_memory_limiter was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down sst_dir_semaphore
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down sst_dir_semaphore was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down migration manager notifier
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down migration manager notifier was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down snitch API
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down snitch API was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down prometheus API server
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down prometheus API server was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down API server
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down API server was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down sighup
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down sighup was successful
+INFO  2026-07-27 01:35:51,335 [shard 0:main] init - Shutting down configurables
+INFO  2026-07-27 01:35:51,336 [shard 0:main] init - Shutting down configurables was successful
+INFO  2026-07-27 01:35:51,336 [shard 0:main] init - Scylla version 2026.1.3-0.20260510.c0bf728edb2b shutdown complete.
+2026-07-27 01:35:51,410 INFO stopped: scylla (exit status 0)
+2026-07-27 01:35:51,410 INFO stopped: scylla (exit status 0)

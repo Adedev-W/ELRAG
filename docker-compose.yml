@@ -1,7 +1,9 @@
+name: elrag
+
 services:
   scylla:
     image: scylladb/scylla:2026.1.3
-    container_name: rust-me-scylla
+    container_name: elrag-scylla
     command:
       - --smp
       - "1"
@@ -14,11 +16,24 @@ services:
     volumes:
       - scylla-data:/var/lib/scylla
     healthcheck:
-      test: ["CMD-SHELL", "cqlsh -e \"SELECT cluster_name FROM system.local;\" localhost 9042 >/dev/null 2>&1"]
-      interval: 20s
+      test: ["CMD-SHELL", "cqlsh $(hostname -i) 9042 -e \"SELECT cluster_name FROM system.local;\" >/dev/null 2>&1"]
+      interval: 5s
       timeout: 10s
       retries: 10
-      start_period: 60s
+      start_period: 15s
+
+  scylla-init:
+    image: scylladb/scylla:2026.1.3
+    depends_on:
+      scylla:
+        condition: service_healthy
+    environment:
+      SCYLLA_KEYSPACE: ${SCYLLA_KEYSPACE:-production}
+    volumes:
+      - ./scripts/init-scylla.sh:/init-scylla.sh:ro
+    entrypoint:
+      - bash
+      - /init-scylla.sh
 
 volumes:
   scylla-data:

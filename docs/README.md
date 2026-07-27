@@ -1,0 +1,25 @@
+# Documentation Index
+
+This directory provides a short map of the ELRAG codebase.
+
+## Project Layout
+
+`elrag/main.py` is the FastAPI entry point. It wires the application together, mounts the routers, and enforces bearer-token access for protected paths.
+
+`elrag/api/` contains the HTTP surface. The auth router handles Google login and JWT issuance, while the other routers expose document, storage, vision, and agent endpoints.
+
+`elrag/core/` contains the service layer. This is where the backend logic for OAuth, document workflows, storage orchestration, and related behavior lives.
+
+`elrag/models/` defines the Scylla/Cassandra tables and schema helpers. The database bootstrap and table sync logic are also defined here.
+
+`elrag/lib/` wraps external integrations such as Google Cloud Storage, Vision, Document AI, and Google Maps.
+
+`elrag/mcp/` exposes MCP tooling for the project, and `rpc-services/` contains the Rust RPC service scaffold.
+
+## Local Development
+
+For the local setup, start with `README.md` in the repository root. It contains the standard install, Scylla startup, API launch, and test commands.
+
+## Testing
+
+The Python test suite lives in `tests/`. Auth behavior, middleware behavior, and service wrappers are already covered there.

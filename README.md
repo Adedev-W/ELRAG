@@ -1,53 +1,92 @@
 # ELRAG
 
-Core project untuk ELRAG. Folder ini berisi API Python, service layer, database models, MCP integration, dokumentasi ScyllaDB, dan Rust RPC services untuk microservices.
+![ELRAG logo](elrag_icon.png)
 
-## Structure
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.138.1-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Rust](https://img.shields.io/badge/Rust-Backend-000000?logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-- `python/elrag/` - package Python core untuk FastAPI, service backend, models, library wrapper, dan MCP tools.
-- `rpc-services/` - Rust tonic/prost RPC service dan protobuf definitions.
-- `docs/` - dokumentasi ScyllaDB dan schema sync.
-- `docker-compose.yml` - ScyllaDB lokal.
-- `requirements.txt` - dependency Python core.
-- `tests/` - test untuk core Python.
+ELRAG is a backend platform for document processing, vision tasks, cloud storage workflows, and API orchestration. It combines a FastAPI service layer, Scylla-backed models, Google Cloud integrations, an MCP server, and a Rust RPC scaffold into one codebase.
 
-## Development
+The project is aimed at teams that need a practical AI-oriented backend rather than a demo app. The Python API exposes the service surface, the model layer persists shared state, and the supporting libraries wrap Google services such as Document AI, Vision, and Cloud Storage.
 
-Install dependency Python:
+## What It Includes
+
+ELRAG is organized around a small set of backend responsibilities. The API package exposes routes for auth, document extraction, GCS operations, vision, and agent workflows. The model layer contains the Scylla/Cassandra tables and schema helpers. The `lib/` modules wrap the external services used by the API. The `mcp/` package exposes MCP tooling, while `rpc-services/` contains the Rust RPC service skeleton referenced by the project.
+
+## Quick Start
+
+Install the Python dependencies first:
 
 ```bash
-python -m pip install -r ELRAG/requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-Jalankan ScyllaDB lokal:
+Start ScyllaDB locally:
 
 ```bash
-cd ELRAG
 docker compose up -d
 ```
 
-Jalankan API lokal:
+Run the API:
 
 ```bash
-PYTHONPATH=ELRAG/python python -m uvicorn elrag.main:app --reload --port 8080
+PYTHONPATH=elrag/python python -m uvicorn elrag.main:app --reload --port 8080
 ```
 
-Build Rust RPC service:
+Build the Rust RPC service if you need it:
 
 ```bash
-cd ELRAG/rpc-services
+cd rpc-services
 cargo build
 ```
 
+## Architecture
+
+The FastAPI application lives in `elrag/main.py`. It mounts the public API routers, enforces bearer-token authorization, and synchronizes registered Scylla tables on startup. Route modules live under `elrag/api/`, with `auth.py`, `docs.py`, `gcs.py`, `vision.py`, and `agent.py` covering the main application surfaces.
+
+Business logic sits in `elrag/core/`. This layer contains the service implementations that handle OAuth, document workflows, cloud storage operations, and vision-related logic. Database models and schema utilities are defined in `elrag/models/`, with `model.py` holding the table definitions and `base.py` managing connection and synchronization.
+
+The repository also includes `elrag/mcp/` for MCP exposure and `rpc-services/` for a separate Rust RPC component. Those pieces are part of the codebase layout, even if you only use the Python API in day-to-day development.
+
+## Authentication
+
+Authentication uses Google OAuth with an authorization-code flow. On successful sign-in, ELRAG creates or refreshes a `google_oauth_user` record, then issues an application JWT for API access. New users are auto-provisioned as active accounts, and subsequent requests are authorized through the bearer token middleware in `elrag/main.py`.
+
+Required environment variables for auth are `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` or `GOOGLE_SECRET_ID`, and `AUTH_JWT_SECRET`. Optional settings include `GOOGLE_REDIRECT_URI`, `AUTH_TOKEN_TTL_SECONDS`, and `GLOBAL_API_QUOTA_LIMIT`.
+
+## Codebase Map
+
+The repository is small enough to navigate without a large docs tree. The most useful entry points are:
+
+`elrag/main.py` for application startup and request authorization.
+`elrag/api/` for HTTP endpoints.
+`elrag/core/` for service-layer logic.
+`elrag/models/` for Scylla models and connection utilities.
+`elrag/lib/` for Google Cloud and service wrappers.
+`tests/` for the current automated coverage.
+`scripts/init-scylla.sh` for local Scylla initialization.
+`rpc-services/` for the Rust RPC project.
+
+For a compact documentation index, see [docs/README.md](docs/README.md).
+
 ## Configuration
 
-- `SCYLLA_CONTACT_POINT` default: `127.0.0.1`
-- `SCYLLA_KEYSPACE` default: `production`
-- Google Cloud helpers memakai credential standar seperti `GOOGLE_APPLICATION_CREDENTIALS`.
-- Google OAuth auth memakai `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` atau fallback `GOOGLE_SECRET_ID`, dan `AUTH_JWT_SECRET`.
-- Optional auth config: `GOOGLE_REDIRECT_URI`, `AUTH_TOKEN_TTL_SECONDS` default `3600`, dan `GLOBAL_API_QUOTA_LIMIT` default `1000`.
-- User OAuth disimpan di tabel `google_oauth_user`; user baru dibuat dengan `is_active=false` dan harus diaktifkan manual di Scylla sebelum bisa memakai endpoint protected.
+The default Scylla contact point is `127.0.0.1` and the default keyspace is `production`. Google Cloud helpers expect standard credentials such as `GOOGLE_APPLICATION_CREDENTIALS`.
 
-## Guides
+For local OAuth development, you should also set the Google auth values above and ensure the redirect URI matches the running FastAPI instance. In production, the callback URL should be registered in Google Cloud Console and the app should be deployed behind HTTPS.
 
-- [Mencoba Google OAuth Lokal](docs/oauth-local.md)
+## Testing
+
+The repository currently uses `pytest` for the Python suite.
+
+```bash
+python -m pytest
+```
+
+The existing tests cover auth behavior, middleware enforcement, and the Google Maps service wrapper.
+
+## License
+
+ELRAG is released under the MIT License. See [LICENSE](LICENSE) for details.

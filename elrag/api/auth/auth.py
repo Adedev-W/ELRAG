@@ -10,6 +10,7 @@ from elrag.core.auth_be import (
     AuthenticationError,
     AuthorizationError,
     AuthorizationServiceBE,
+    OAUTH_PKCE_VERIFIER_COOKIE,
     OAUTH_STATE_COOKIE,
 )
 
@@ -21,21 +22,37 @@ auth_service = AuthorizationServiceBE()
 async def login(request: Request) -> RedirectResponse:
     try:
         state = auth_service.create_state()
+        pkce_pair = auth_service.create_pkce_pair()
         redirect_uri = auth_service.get_redirect_uri(
             str(request.url_for("google_oauth_callback"))
         )
-        authorization_url = auth_service.build_authorization_url(state, redirect_uri)
+        authorization_url = auth_service.build_authorization_url(
+            state,
+            redirect_uri,
+            pkce_pair.code_challenge,
+        )
     except AuthConfigurationError as exc:
         return JSONResponse(status_code=500, content={"message": str(exc)})
 
     response = RedirectResponse(authorization_url, status_code=307)
+    secure_cookie = _cookie_secure(request)
     response.set_cookie(
         OAUTH_STATE_COOKIE,
         state,
         max_age=600,
         httponly=True,
-        secure=True,
+        secure=secure_cookie,
         samesite="lax",
+        path="/auth",
+    )
+    response.set_cookie(
+        OAUTH_PKCE_VERIFIER_COOKIE,
+        pkce_pair.code_verifier,
+        max_age=600,
+        httponly=True,
+        secure=secure_cookie,
+        samesite="lax",
+        path="/auth",
     )
     return response
 
@@ -54,7 +71,14 @@ async def callback(
         )
 
     expected_state = request.cookies.get(OAUTH_STATE_COOKIE)
-    if not code or not state or not expected_state or state != expected_state:
+    code_verifier = request.cookies.get(OAUTH_PKCE_VERIFIER_COOKIE)
+    if (
+        not code
+        or not state
+        or not expected_state
+        or not code_verifier
+        or state != expected_state
+    ):
         return _state_clearing_response(
             status_code=400,
             content={"message": "invalid OAuth state"},
@@ -68,6 +92,7 @@ async def callback(
         token_response = await auth_service.exchange_authorization_code(
             code,
             redirect_uri,
+            code_verifier,
         )
         claims = auth_service.verify_google_id_token(token_response["id_token"])
         user = auth_service.get_or_create_user(claims)
@@ -112,4 +137,12 @@ async def me(request: Request) -> JSONResponse:
 def _state_clearing_response(status_code: int, content: dict) -> JSONResponse:
     response = JSONResponse(status_code=status_code, content=content)
     response.delete_cookie(OAUTH_STATE_COOKIE)
+    response.delete_cookie(OAUTH_PKCE_VERIFIER_COOKIE)
     return response
+
+
+def _cookie_secure(request: Request) -> bool:
+    setting = request.headers.get("x-forwarded-proto")
+    if setting:
+        return setting.split(",")[0].strip().lower() == "https"
+    return request.url.scheme == "https"

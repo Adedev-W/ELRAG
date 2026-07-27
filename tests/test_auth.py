@@ -74,7 +74,7 @@ class AuthorizationServiceTest(unittest.TestCase):
             with self.assertRaisesRegex(Exception, "Missing auth configuration"):
                 _ = service.settings
 
-    def test_new_google_user_is_created_inactive(self) -> None:
+    def test_new_google_user_is_created_active(self) -> None:
         claims = {
             "sub": "google-sub-1",
             "email": "user@example.com",
@@ -91,8 +91,32 @@ class AuthorizationServiceTest(unittest.TestCase):
             user = service.get_or_create_user(claims)
 
         self.assertIs(user, FakeOAuthUser.created_user)
-        self.assertFalse(user.is_active)
+        self.assertTrue(user.is_active)
         self.assertEqual("user", user.role)
+
+    def test_pkce_pair_generates_matching_challenge(self) -> None:
+        service = AuthorizationServiceBE(settings=_settings())
+
+        pair = service.create_pkce_pair()
+
+        self.assertTrue(pair.code_verifier)
+        self.assertTrue(pair.code_challenge)
+        self.assertNotEqual(pair.code_verifier, pair.code_challenge)
+        self.assertNotIn("=", pair.code_challenge)
+        self.assertNotIn("+", pair.code_challenge)
+        self.assertNotIn("/", pair.code_challenge)
+
+    def test_authorization_url_includes_pkce_challenge(self) -> None:
+        service = AuthorizationServiceBE(settings=_settings())
+
+        url = service.build_authorization_url(
+            "state-1",
+            "http://localhost/auth/callback",
+            "challenge-1",
+        )
+
+        self.assertIn("code_challenge=challenge-1", url)
+        self.assertIn("code_challenge_method=S256", url)
 
     def test_active_user_gets_valid_jwt(self) -> None:
         user = FakeOAuthUser(is_active=True)
@@ -131,6 +155,7 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_invalid_state_callback_returns_400(self) -> None:
         self.client.cookies.set("elrag_oauth_state", "expected-state")
+        self.client.cookies.set("elrag_oauth_pkce_verifier", "verifier-1")
         response = await self.client.get(
             "/auth/callback",
             params={"code": "code-1", "state": "wrong-state"},
@@ -144,11 +169,12 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
             def get_redirect_uri(self, fallback_redirect_uri: str) -> str:
                 return fallback_redirect_uri
 
-            async def exchange_authorization_code(self, code, redirect_uri):
+            async def exchange_authorization_code(self, code, redirect_uri, code_verifier):
                 raise AuthenticationError("failed to exchange authorization code")
 
         with patch("elrag.api.auth.auth.auth_service", FailingAuthService()):
             self.client.cookies.set("elrag_oauth_state", "state-1")
+            self.client.cookies.set("elrag_oauth_pkce_verifier", "verifier-1")
             response = await self.client.get(
                 "/auth/callback",
                 params={"code": "code-1", "state": "state-1"},
@@ -160,12 +186,12 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
             response.json(),
         )
 
-    async def test_pending_user_callback_returns_403(self) -> None:
+    async def test_inactive_user_callback_returns_403(self) -> None:
         class PendingAuthService:
             def get_redirect_uri(self, fallback_redirect_uri: str) -> str:
                 return fallback_redirect_uri
 
-            async def exchange_authorization_code(self, code, redirect_uri):
+            async def exchange_authorization_code(self, code, redirect_uri, code_verifier):
                 return {"id_token": "google-id-token"}
 
             def verify_google_id_token(self, raw_id_token: str) -> dict:
@@ -179,6 +205,7 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
 
         with patch("elrag.api.auth.auth.auth_service", PendingAuthService()):
             self.client.cookies.set("elrag_oauth_state", "state-1")
+            self.client.cookies.set("elrag_oauth_pkce_verifier", "verifier-1")
             response = await self.client.get(
                 "/auth/callback",
                 params={"code": "code-1", "state": "state-1"},
@@ -202,7 +229,7 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
             def get_redirect_uri(self, fallback_redirect_uri: str) -> str:
                 return fallback_redirect_uri
 
-            async def exchange_authorization_code(self, code, redirect_uri):
+            async def exchange_authorization_code(self, code, redirect_uri, code_verifier):
                 return {"id_token": "google-id-token"}
 
             def verify_google_id_token(self, raw_id_token: str) -> dict:
@@ -222,6 +249,7 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
 
         with patch("elrag.api.auth.auth.auth_service", ActiveAuthService()):
             self.client.cookies.set("elrag_oauth_state", "state-1")
+            self.client.cookies.set("elrag_oauth_pkce_verifier", "verifier-1")
             response = await self.client.get(
                 "/auth/callback",
                 params={"code": "code-1", "state": "state-1"},
@@ -237,6 +265,16 @@ class AuthRouterTest(unittest.IsolatedAsyncioTestCase):
             },
             response.json(),
         )
+
+    async def test_login_sets_state_and_pkce_cookies(self) -> None:
+        response = await self.client.get("/auth/login", follow_redirects=False)
+
+        self.assertEqual(307, response.status_code)
+        location = response.headers["location"]
+        self.assertIn("code_challenge=", location)
+        self.assertIn("code_challenge_method=S256", location)
+        self.assertIn("elrag_oauth_state=", response.headers.get("set-cookie", ""))
+        self.assertIn("elrag_oauth_pkce_verifier=", response.headers.get("set-cookie", ""))
 
 
 class MainMiddlewareTest(unittest.IsolatedAsyncioTestCase):

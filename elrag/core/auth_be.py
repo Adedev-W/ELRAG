@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import os
 import secrets
+import base64
+import hashlib
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from threading import Lock
@@ -25,6 +27,7 @@ JWT_ALGORITHM = "HS256"
 JWT_AUDIENCE = "elrag-api"
 JWT_ISSUER = "elrag"
 OAUTH_STATE_COOKIE = "elrag_oauth_state"
+OAUTH_PKCE_VERIFIER_COOKIE = "elrag_oauth_pkce_verifier"
 
 
 class AuthConfigurationError(RuntimeError):
@@ -78,6 +81,12 @@ class OAuthSettings:
             redirect_uri=os.getenv("GOOGLE_REDIRECT_URI"),
             token_ttl_seconds=_read_positive_int("AUTH_TOKEN_TTL_SECONDS", 3600),
         )
+
+
+@dataclass(frozen=True)
+class OAuthPKCEPair:
+    code_verifier: str
+    code_challenge: str
 
 
 @dataclass(frozen=True)
@@ -143,7 +152,21 @@ class AuthorizationServiceBE:
     def create_state(self) -> str:
         return secrets.token_urlsafe(32)
 
-    def build_authorization_url(self, state: str, redirect_uri: str) -> str:
+    def create_pkce_pair(self) -> OAuthPKCEPair:
+        code_verifier = secrets.token_urlsafe(64)
+        digest = hashlib.sha256(code_verifier.encode("utf-8")).digest()
+        code_challenge = base64.urlsafe_b64encode(digest).decode("ascii").rstrip("=")
+        return OAuthPKCEPair(
+            code_verifier=code_verifier,
+            code_challenge=code_challenge,
+        )
+
+    def build_authorization_url(
+        self,
+        state: str,
+        redirect_uri: str,
+        code_challenge: str,
+    ) -> str:
         settings = self.settings
         query = urlencode(
             {
@@ -152,6 +175,8 @@ class AuthorizationServiceBE:
                 "response_type": "code",
                 "scope": " ".join(GOOGLE_OAUTH_SCOPES),
                 "state": state,
+                "code_challenge": code_challenge,
+                "code_challenge_method": "S256",
                 "access_type": "offline",
                 "include_granted_scopes": "true",
                 "prompt": "consent",
@@ -166,6 +191,7 @@ class AuthorizationServiceBE:
         self,
         code: str,
         redirect_uri: str,
+        code_verifier: str,
     ) -> dict[str, Any]:
         settings = self.settings
         payload = {
@@ -174,6 +200,7 @@ class AuthorizationServiceBE:
             "client_secret": settings.google_client_secret,
             "redirect_uri": redirect_uri,
             "grant_type": "authorization_code",
+            "code_verifier": code_verifier,
         }
 
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -213,7 +240,7 @@ class AuthorizationServiceBE:
                 email=str(claims["email"]),
                 name=claims.get("name"),
                 picture=claims.get("picture"),
-                is_active=False,
+                is_active=True,
                 role="user",
                 created_at=now,
                 updated_at=now,

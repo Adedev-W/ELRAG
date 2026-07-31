@@ -6,3 +6,4 @@ target/
 *.pyc
 .env
 ELRAG-sdk/
+elrag-fe/

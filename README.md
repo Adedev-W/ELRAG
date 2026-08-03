@@ -60,6 +60,33 @@ The quota counter is shared through Redis. Set `REDIS_URL` when Redis is not run
 
 The agent API is implemented with native FastAPI routes. Use `POST /agent/run` with a required `message`, an optional `session_id`, and optional `stream: true` for SSE output. The authenticated JWT subject is used as the agent user identity.
 
+## Protected API Test Client
+
+The repository includes `client.py` for protected API smoke tests. It derives the API base URL from `API_BASE_URL` or `GOOGLE_REDIRECT_URI`, so changing the ngrok URL in `.env` updates the client automatically.
+
+Start the API with the URL configured in `.env`, then save an OAuth token:
+
+```bash
+.venv/bin/python client.py login
+```
+
+The browser must complete the Google OAuth flow. Paste the `access_token` or the full JSON response shown by `/auth/callback`; the token is saved to `.api_token.json`, which is ignored by Git.
+
+Run read-only protected checks:
+
+```bash
+.venv/bin/python client.py smoke
+```
+
+Run upload and provider checks explicitly:
+
+```bash
+API_TEST_AGENT_MESSAGE="Cari satu restoran untuk meeting di Jakarta" \
+.venv/bin/python client.py run-all --verbose
+```
+
+Set `API_TEST_FILE`, `API_TEST_VISION_FILE`, `API_TEST_BLOB_NAME`, `API_TEST_DOCUMENT_ID`, or `API_TEST_VISION_ID` in `.env` when testing specific fixtures or persisted records.
+
 ## Codebase Map
 
 The repository is small enough to navigate without a large docs tree. The most useful entry points are:
@@ -88,7 +115,7 @@ For local OAuth development, you should also set the Google auth values above an
 The repository currently uses `pytest` for the Python suite.
 
 ```bash
-.venv/bin/python -m pytest
+OTEL_ENABLED=false .venv/bin/python -m pytest
 ```
 
 To verify atomic quota behavior against the local Compose Redis service:

@@ -20,7 +20,7 @@ ELRAG is organized around a small set of backend responsibilities. The API packa
 Install the Python dependencies first:
 
 ```bash
-python -m pip install -r requirements.txt
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
 Start ScyllaDB locally:
@@ -32,7 +32,7 @@ docker compose up -d
 Run the API:
 
 ```bash
-PYTHONPATH=elrag/python python -m uvicorn elrag.main:app --reload --port 8080
+.venv/bin/python -m uvicorn elrag.main:app --reload --port 8080
 ```
 
 Build the Rust RPC service if you need it:
@@ -56,6 +56,10 @@ Authentication uses Google OAuth with an authorization-code flow. On successful 
 
 Required environment variables for auth are `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` or `GOOGLE_SECRET_ID`, and `AUTH_JWT_SECRET`. Optional settings include `GOOGLE_REDIRECT_URI`, `AUTH_TOKEN_TTL_SECONDS`, and `GLOBAL_API_QUOTA_LIMIT`.
 
+The quota counter is shared through Redis. Set `REDIS_URL` when Redis is not running at `redis://localhost:6379/0`. The counter is atomic per UTC day and does not fall back to process memory.
+
+The agent API is implemented with native FastAPI routes. Use `POST /agent/run` with a required `message`, an optional `session_id`, and optional `stream: true` for SSE output. The authenticated JWT subject is used as the agent user identity.
+
 ## Codebase Map
 
 The repository is small enough to navigate without a large docs tree. The most useful entry points are:
@@ -75,6 +79,8 @@ For a compact documentation index, see [docs/README.md](docs/README.md).
 
 The default Scylla contact point is `127.0.0.1` and the default keyspace is `production`. Google Cloud helpers expect standard credentials such as `GOOGLE_APPLICATION_CREDENTIALS`.
 
+Production observability uses OpenTelemetry. Set `GOOGLE_CLOUD_PROJECT`, provide Application Default Credentials, and keep `OTEL_ENABLED=true`. The service account needs Monitoring Metric Writer and Cloud Trace Writer access. `OTEL_SERVICE_NAME`, `OTEL_SERVICE_VERSION`, `DEPLOYMENT_ENVIRONMENT`, `OTEL_TRACE_SAMPLING_RATIO`, and `OTEL_METRIC_EXPORT_INTERVAL_MS` are optional tuning settings.
+
 For local OAuth development, you should also set the Google auth values above and ensure the redirect URI matches the running FastAPI instance. In production, the callback URL should be registered in Google Cloud Console and the app should be deployed behind HTTPS.
 
 ## Testing
@@ -82,10 +88,16 @@ For local OAuth development, you should also set the Google auth values above an
 The repository currently uses `pytest` for the Python suite.
 
 ```bash
-python -m pytest
+.venv/bin/python -m pytest
 ```
 
-The existing tests cover auth behavior, middleware enforcement, and the Google Maps service wrapper.
+To verify atomic quota behavior against the local Compose Redis service:
+
+```bash
+RUN_REDIS_INTEGRATION_TESTS=1 .venv/bin/python -m pytest tests/test_quota.py
+```
+
+The existing tests cover auth behavior, middleware enforcement, Redis quota concurrency, OpenTelemetry request outcomes, and the Google Maps service wrapper.
 
 ## License
 

@@ -6,7 +6,6 @@ import base64
 import hashlib
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from threading import Lock
 from typing import Any
 from urllib.parse import urlencode
 
@@ -16,6 +15,11 @@ from dotenv import load_dotenv
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token as google_id_token
 
+from elrag.core.quota import (
+    QuotaSnapshot,
+    QuotaStoreUnavailableError,
+    RedisQuotaStore,
+)
 from elrag.models.model import GoogleOAuthUser
 
 load_dotenv()
@@ -99,14 +103,10 @@ class AuthenticatedUser:
 
 
 class AuthorizationServiceBE:
-    _lock = Lock()
-    _quota_limit = 1000
-    _quota_remaining = 1000
-    _quota_reset_date = datetime.now(timezone.utc).date()
-
     def __init__(self, settings: OAuthSettings | None = None) -> None:
         self._settings = settings
         self.quota_limit = self._read_quota_limit()
+        self.quota_store = RedisQuotaStore(limit=self.quota_limit)
 
     @property
     def settings(self) -> OAuthSettings:
@@ -118,36 +118,27 @@ class AuthorizationServiceBE:
     def _read_quota_limit() -> int:
         return _read_positive_int("GLOBAL_API_QUOTA_LIMIT", 1000)
 
-    @classmethod
-    def _reset_if_needed(cls) -> None:
-        today = datetime.now(timezone.utc).date()
-        if cls._quota_reset_date != today:
-            cls._quota_reset_date = today
-            cls._quota_limit = cls._read_quota_limit()
-            cls._quota_remaining = cls._quota_limit
+    async def quota_snapshot(self) -> QuotaSnapshot:
+        return await self.quota_store.snapshot()
 
-    @classmethod
-    def quota_snapshot(cls) -> tuple[int, int]:
-        with cls._lock:
-            cls._reset_if_needed()
-            return cls._quota_limit, cls._quota_remaining
+    async def consume_quota(self) -> tuple[int, int]:
+        snapshot = await self.quota_store.consume()
+        if not snapshot.allowed:
+            raise QuotaExceededError("global quota exhausted")
+        return snapshot.limit, snapshot.remaining
 
-    @classmethod
-    def consume_quota(cls) -> tuple[int, int]:
-        with cls._lock:
-            cls._reset_if_needed()
-            quota_limit = cls._quota_limit
-            if cls._quota_remaining <= 0:
-                raise QuotaExceededError("global quota exhausted")
-            cls._quota_remaining -= 1
-            return quota_limit, cls._quota_remaining
-
-    def build_quota_headers(self) -> dict[str, str]:
-        quota_limit, quota_remaining = self.quota_snapshot()
+    async def build_quota_headers(self) -> dict[str, str]:
+        snapshot = await self.quota_snapshot()
         return {
-            "X-Global-Quota-Limit": str(quota_limit),
-            "X-Global-Quota-Remaining": str(quota_remaining),
+            "X-Global-Quota-Limit": str(snapshot.limit),
+            "X-Global-Quota-Remaining": str(snapshot.remaining),
         }
+
+    async def check_quota_store(self) -> bool:
+        return await self.quota_store.ping()
+
+    async def close(self) -> None:
+        await self.quota_store.close()
 
     def create_state(self) -> str:
         return secrets.token_urlsafe(32)

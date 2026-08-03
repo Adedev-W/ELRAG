@@ -76,7 +76,10 @@ openinference-instrumentation==0.1.54
 openinference-instrumentation-agno==0.1.38
 openinference-semantic-conventions==0.1.30
 opentelemetry-api==1.44.0
+opentelemetry-exporter-gcp-monitoring==1.12.0a0
+opentelemetry-exporter-gcp-trace==1.13.0
 opentelemetry-instrumentation==0.65b0
+opentelemetry-instrumentation-fastapi==0.65b0
 opentelemetry-sdk==1.44.0
 opentelemetry-semantic-conventions==0.65b0
 packaging==26.2
@@ -110,6 +113,7 @@ rich-rst==2.1.0
 rich-toolkit==0.20.1
 rignore==0.7.6
 rpds-py==2026.6.3
+redis==6.4.0
 scylla-driver==3.29.11
 SecretStorage==3.5.0
 sentry-sdk==2.63.0

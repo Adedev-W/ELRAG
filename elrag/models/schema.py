@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 from pydantic import BaseModel, Field
 
 #DocumentAI Schema
@@ -62,3 +62,15 @@ class GMSResponse(BaseModel):
     input_text: str = Field(..., description="Input text for autocomplete")
     language_code: Optional[str] = Field(None, description="Optional language code for autocomplete")
     language_detection: str = Field(..., description="Language detection result for the input text")
+
+
+class AgentRunRequest(BaseModel):
+    message: str = Field(..., min_length=1, max_length=10000)
+    session_id: Optional[str] = Field(None, min_length=1, max_length=128)
+    stream: bool = False
+
+
+class AgentRunResponse(BaseModel):
+    run_id: Optional[str] = None
+    session_id: Optional[str] = None
+    content: Any

@@ -291,7 +291,15 @@ class MainMiddlewareTest(unittest.IsolatedAsyncioTestCase):
         await self.client.aclose()
 
     async def test_request_without_bearer_token_returns_401(self) -> None:
-        response = await self.client.get("/auth/me")
+        class FakeAuthService:
+            async def build_quota_headers(self):
+                return {
+                    "X-Global-Quota-Limit": "1000",
+                    "X-Global-Quota-Remaining": "1000",
+                }
+
+        with patch.object(self.main_module, "auth_service", FakeAuthService()):
+            response = await self.client.get("/auth/me")
 
         self.assertEqual(401, response.status_code)
         self.assertEqual(
@@ -301,7 +309,7 @@ class MainMiddlewareTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_invalid_bearer_token_returns_401(self) -> None:
         class FakeAuthService:
-            def build_quota_headers(self):
+            async def build_quota_headers(self):
                 return {"X-Global-Quota-Limit": "1000", "X-Global-Quota-Remaining": "1000"}
 
             def authenticate_bearer_token(self, raw_token: str):
@@ -318,7 +326,7 @@ class MainMiddlewareTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_inactive_user_returns_403(self) -> None:
         class FakeAuthService:
-            def build_quota_headers(self):
+            async def build_quota_headers(self):
                 return {"X-Global-Quota-Limit": "1000", "X-Global-Quota-Remaining": "1000"}
 
             def authenticate_bearer_token(self, raw_token: str):
@@ -346,7 +354,7 @@ class MainMiddlewareTest(unittest.IsolatedAsyncioTestCase):
             def authenticate_bearer_token(self, raw_token: str):
                 return user
 
-            def consume_quota(self):
+            async def consume_quota(self):
                 return 1000, 999
 
         with patch.object(self.main_module, "auth_service", FakeAuthService()):

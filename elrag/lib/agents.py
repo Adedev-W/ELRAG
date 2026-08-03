@@ -1,60 +1,47 @@
+from __future__ import annotations
 
-
+import asyncio
 import os
+from collections.abc import AsyncIterator, Iterator
+from typing import Any
 
-from dotenv import load_dotenv
 from agno.agent import Agent
 from agno.models.deepseek import DeepSeek
+from dotenv import load_dotenv
 from tavily import TavilyClient
+
 from elrag.lib.gmaps import GoogleMapsService
-from agno.os import AgentOS
-import asyncio
 
 load_dotenv()
 
+
 def web_search(query: str) -> dict:
-    """
-    Perform a web search using the Tavily API.(Query must use same language as the user input)
-    """
+    """Perform a web search using Tavily."""
     client = TavilyClient()
-    response = client.search(
-        query=query,
-        search_depth="advanced",
-        max_results=20
-    )
-    return response
+    return client.search(query=query, search_depth="advanced", max_results=20)
 
 
-def search_places(
-    query: str
-) -> dict:
-    """
-    Search for multiple place candidates using a natural-language query.(Query must use same language as the user input)
-
-    Use this tool for requests such as:
-    - coffee shops near an airport
-    - hospitals in Pontianak
-    - restaurants suitable for meetings
-
-    Do not use this tool when a specific Place ID is already available.
-    Do not call this tool repeatedly after valid candidates are returned.
-    """
+def search_places(query: str) -> dict:
+    """Search for place candidates using Google Maps."""
     maps_service = GoogleMapsService()
-    result = asyncio.run(maps_service.text_search(query, max_result_count=10))
-    return result
+    return asyncio.run(maps_service.text_search(query, max_result_count=10))
+
+
+def _next_stream_item(iterator: Iterator[Any]) -> tuple[bool, Any]:
+    try:
+        return True, next(iterator)
+    except StopIteration:
+        return False, None
 
 
 class GmapsAgent:
-    def __init__(self):
-        self.gmaps_agent = Agent(
+    def __init__(self) -> None:
+        self.agent = Agent(
             name="Google Maps Service Agent",
             model=DeepSeek(
                 id=os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash"),
             ),
-            tools=[
-                web_search,
-                search_places
-            ],
+            tools=[web_search, search_places],
             tool_call_limit=2,
             add_datetime_to_context=True,
             instructions=[
@@ -78,16 +65,39 @@ class GmapsAgent:
             ],
             markdown=True,
         )
-        
-    def run(self):
-        self.agent_os = AgentOS(agents=[self.gmaps_agent])
-        return self.agent_os.get_routes()
-        
-        
 
-# if __name__ == "__main__":
-#     gmaps_agent.print_response(
-#         "",
-#         stream=True
-#     )
-    
+    async def run(
+        self,
+        message: str,
+        *,
+        user_id: str,
+        session_id: str | None = None,
+    ) -> Any:
+        return await asyncio.to_thread(
+            self.agent.run,
+            message,
+            user_id=user_id,
+            session_id=session_id,
+            stream=False,
+        )
+
+    async def stream(
+        self,
+        message: str,
+        *,
+        user_id: str,
+        session_id: str | None = None,
+    ) -> AsyncIterator[Any]:
+        iterator = await asyncio.to_thread(
+            self.agent.run,
+            message,
+            user_id=user_id,
+            session_id=session_id,
+            stream=True,
+        )
+
+        while True:
+            has_item, item = await asyncio.to_thread(_next_stream_item, iterator)
+            if not has_item:
+                return
+            yield item
